@@ -1,4 +1,4 @@
-﻿FUNCTION_BLOCK "_configNetworkAdapter_new"
+﻿FUNCTION_BLOCK "_configNetworkAdapter"
 TITLE = Function:"Configure network adapter"
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf

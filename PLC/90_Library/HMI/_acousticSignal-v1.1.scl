@@ -1,9 +1,9 @@
-﻿FUNCTION_BLOCK "_acoustingSignal"
+﻿FUNCTION_BLOCK "_acousticSignal"
 TITLE = Function:Acoustic signal
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : HMI
-NAME : _acoustingSignal
+NAME : _acousticSignal
 VERSION : 1.1
 
    VAR_INPUT 

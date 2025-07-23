@@ -1,9 +1,9 @@
-﻿FUNCTION_BLOCK "_monitorPhisicalPulseButton"
+﻿FUNCTION_BLOCK "_monitorPhysicalPulseButton"
 TITLE = Function:Monitor pulse button
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : HMI
-NAME : _monitorPhisicalPulseButton
+NAME : _monitorPhysicalPulseButton
 VERSION : 1.3
    VAR_INPUT 
       button : Bool;   // IW: 1=Button is pressed
