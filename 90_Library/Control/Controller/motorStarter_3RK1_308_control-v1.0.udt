@@ -1,0 +1,47 @@
+﻿TYPE "motorStarter_3RK1_308_control"
+TITLE = Type:Motor starter control
+AUTHOR : cyanezf
+FAMILY : 'Control/Controller'
+VERSION : 1.0
+
+//(*--
+//# Falimy
+//* Control/Controller
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2022-10-12 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Motor starter control
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      motorCw : Bool;   // Motor CW
+      motorCcw : Bool;   // Motor CCW (Reversing starters only)
+      res02 : Bool;   // Reserved
+      tripReset : Bool;   // Trip RESET
+      emergencyStart : Bool;   // Emergency start
+      res05 : Bool;   // Reserved
+      res06 : Bool;   // Reserved
+      coldStart : Bool;   // Cold start
+      res10 : Bool;   // Reserved
+      res11 : Bool;   // Reserved
+      res12 : Bool;   // Reserved
+      res13 : Bool;   // Reserved
+      res14 : Bool;   // Reserved
+      res15 : Bool;   // Reserved
+      res16 : Bool;   // Reserved
+      disableQuickStop : Bool;   // Disable quick stop
+   END_STRUCT;
+
+END_TYPE
+

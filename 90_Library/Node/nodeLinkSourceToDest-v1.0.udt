@@ -1,0 +1,34 @@
+﻿TYPE "nodeLinkSourceToDest"
+TITLE = Type:Node link - source to destination
+AUTHOR : cyanezf
+FAMILY: Node
+VERSION : 1.1
+
+//(*--
+//# Falimy
+//* Node
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.1 | 2023-10-20 | cyanezf | `shortCycle` added |
+//| v1.0 | 2023-10-19 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Node link - source to destination
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      transferring : Bool;   // 1=Transferring object
+      shortCycle : Bool;   // 1=Short cycle
+   END_STRUCT;
+
+END_TYPE
+

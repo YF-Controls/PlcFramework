@@ -1,0 +1,67 @@
+﻿FUNCTION "_clearDeltatime" : Void
+TITLE = Function:Clear deltatime
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Datetime/Deltatime'
+NAME : _clearDeltatime
+VERSION : 1.0
+   VAR_IN_OUT 
+      data : Variant;   // Unormalized or normalized deltatime
+   END_VAR
+
+   VAR_TEMP 
+      status : Int;
+      un : "unnormalizedDeltatime";
+      "dt" : "deltatime";
+   END_VAR
+
+
+BEGIN
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2025-06-17 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| unnormalizedDeltatime |
+	| deltatime |
+	
+	# Description
+	This function clear/initilize unormalized or deltatime.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	IF TypeOf(#data) = unnormalizedDeltatime THEN
+	  
+	  #un.weeks :=
+	  #un.days :=
+	  #un.hours :=
+	  #un.minutes :=
+	  #un.seconds :=
+	  #un.nanoseconds := 0;
+	  
+	  #status := MOVE_BLK_VARIANT(SRC := #un, COUNT := 1, SRC_INDEX := 0, DEST_INDEX := 0, DEST => #data);
+	  
+	ELSIF TypeOf(#data) = deltatime THEN
+	  
+	  #dt.days :=
+	  #dt.seconds :=
+	  #dt.nanoseconds := 0;
+	  
+	  #status := MOVE_BLK_VARIANT(SRC := #dt, COUNT := 1, SRC_INDEX := 0, DEST_INDEX := 0, DEST => #data);
+	  
+	ELSE
+	  #status := 16#8000;
+	  
+	END_IF;
+	
+	ENO := #status = 0;
+	
+END_FUNCTION
+

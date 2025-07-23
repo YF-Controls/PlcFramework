@@ -1,0 +1,71 @@
+﻿FUNCTION "_removeSpaces" : String
+TITLE = Function:"Remove Spaces"
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'String'
+NAME : _removeSpaces
+VERSION : 1.0
+//["version","date","author","description"],
+//["v1.0","2025-03-23","cyanezf","First version"]
+   VAR_INPUT 
+      in : String;   // Source string
+   END_VAR
+
+   VAR_TEMP 
+      newString : String;
+      sourceLength : Int;
+      destLength : Int;
+      newLength : Int;
+      i : Int;
+   END_VAR
+
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-03-23 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+
+# Description
+This function removes spaces from `in`.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	#sourceLength := LEN(#in);
+	#destLength := MAX_LEN(#_removeSpaces);
+	#newLength := 0;
+	#newString := '';
+	
+	FOR #i := 1 TO #sourceLength DO
+	  
+	  IF #in[#i] = ' ' THEN
+	    CONTINUE;
+	  END_IF;
+	  
+	  #newString := INSERT(IN1:=#newString, IN2:=#in[#i], P:=#newLength+1);
+	  #newLength += 1;
+	    
+	END_FOR;
+	
+	IF #newLength > #destLength THEN
+	  #_removeSpaces := '';
+	  ENO := false;
+	  RETURN;
+	END_IF;
+	
+	// Return
+	#_removeSpaces := #newString;
+
+	// Save RLO
+	ENO := true;
+	
+END_FUNCTION
+

@@ -1,0 +1,61 @@
+﻿FUNCTION "_alarmBit" : Void
+TITLE = Function:Update alarm bit
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : Alarm
+NAME : _alarmBit
+VERSION : 1.1
+
+   VAR_INPUT 
+      incoming : Bool;   // 1=Alarm triggered
+      outcoming : Bool;   // 1=No alarm
+      acknNeeded : Bool;   // 0=Auto ackn; 1=Use ackn
+      ackn : Bool;   // 1=Ackn
+   END_VAR
+
+   VAR_IN_OUT 
+      u_thisAlarm : Bool;   // 1=Alarm triggered bit
+      s_localAlarm : Bool;   // Set local alarm
+   END_VAR
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.1 | 2025-02-15 | cyanezf | u_mapAlarm was removed |
+| v1.0 | 2023-10-27 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+
+# Description
+Alarm bit #u_thisAlarm is triggered when #incoming is true.
+Alarm bit #u_thisAlarm is reset when #incoming is false, #outcoming is true and #ackn is true or
+#acknNeeded is false.
+`s_localAlarm` is set when #u_thisAlarm is true.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	// Set/Reset alarm
+	IF #incoming THEN
+	  #u_thisAlarm := true;
+
+	ELSIF #outcoming AND (NOT #acknNeeded OR #ackn) THEN
+	  #u_thisAlarm := false;
+	END_IF;
+	
+	// Set/Reset Flags
+	IF #u_thisAlarm THEN
+	  #s_localAlarm := true;
+	END_IF;
+	
+	// Save RLO
+	ENO := NOT #u_thisAlarm;
+	
+END_FUNCTION
+

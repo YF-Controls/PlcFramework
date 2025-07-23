@@ -1,0 +1,93 @@
+﻿FUNCTION "_alarmBitForSafety" : Void
+TITLE = Function:Alarm bit for Safety status
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : Alarm
+NAME : _alarmBitForSafety
+VERSION : 1.0
+
+   VAR_INPUT 
+      status : Int; // F_Status variable from safety device
+      errorAckn : Bool; // 1=Error ackn.
+      emrgAckn : Bool; // 1=Emergency ackn.
+   END_VAR
+
+   VAR_IN_OUT 
+      u_a2wAlarmBit : Bool; // 1=Warning alarm triggered
+      u_a3eAlarmBit : Bool; // 1=Error alarm triggerd
+      u_a4fAlarmBit : Bool; // 1=Emergency alarm triggered
+      s_a2wLocalAlarm : Bool; // Set Warning alarm in controller group
+      s_a3eLocalAlarm : Bool; // Set Error alarm in controller group
+      s_a4fLocalAlarm : Bool; // Set Emergency alarm in controller group
+   END_VAR
+
+   VAR_TEMP 
+      a2w : Bool;
+      a3e : Bool;
+      a4f : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      F_STATUS_7000_LOWER_WARNING : Int := 16#7000;
+      F_STATUS_7FFF_UPPER_WARNING : Int := 16#7FFF;
+      F_STATUS_8000_LOWER_ERROR : Int := 16#8000;
+      F_STATUS_8FFF_UPPER_ERROR : Int := 16#8FFF;
+      F_STATUS_F000_LOWER_EMERGENCY : Int := 16#F000;
+      F_STATUS_FFFF_LOWER_EMERGENCY : Int := 16#FFFF;
+   END_VAR
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-03-24 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| _alarmBit |
+
+# Description
+This functions gets alarm levels from status and call `_alarmBit` for every
+alarm level (_waring_, _error_ and _emergency_)
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+   
+  // Get alarm levels
+	#a2w := #status >= #F_STATUS_7000_LOWER_WARNING AND #status <= #F_STATUS_7FFF_UPPER_WARNING;
+	#a3e := #status >= #F_STATUS_8000_LOWER_ERROR AND #status <= #F_STATUS_8FFF_UPPER_ERROR;
+	#a4f := #status >= #F_STATUS_F000_LOWER_EMERGENCY AND #status <= #F_STATUS_FFFF_LOWER_EMERGENCY;
+	
+	// Warning
+	"_alarmBit"(incoming:=#a2w,
+	            outcoming:=1,
+	            acknNeeded:=0,
+	            ackn:=0,
+	            u_thisAlarm:=#u_a2wAlarmBit,
+	            s_localAlarm:=#s_a2wLocalAlarm);
+	
+	// Error
+	"_alarmBit"(incoming := #a3e,
+	            outcoming := 1,
+	            acknNeeded := 1,
+	            ackn :=  #errorAckn,
+	            u_thisAlarm := #u_a3eAlarmBit,
+	            s_localAlarm := #s_a3eLocalAlarm);
+	
+	// Emergency
+	"_alarmBit"(incoming := #a4f,
+	            outcoming := 1,
+	            acknNeeded := 1,
+	            ackn :=  #emrgAckn,
+	            u_thisAlarm := #u_a4fAlarmBit,
+	            s_localAlarm := #s_a4fLocalAlarm);
+	
+	// Save RLO
+	ENO := true;
+	
+END_FUNCTION
+

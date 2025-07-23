@@ -1,0 +1,188 @@
+﻿FUNCTION_BLOCK "_manualControl_positioningAxis"
+TITLE = Function:Manual control for positioning Axis
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Manual'
+NAME : _manualControl_positioningAxis
+VERSION : 1.0
+   VAR_INPUT 
+      manualOk { ExternalWritable := 'False'} : Bool;   // IR: 1=Manual ok
+      homed { ExternalWritable := 'False'} : Bool;   // IR: 1=Homed and sync. ok
+      position : Real;   // IW: Setpoint position for positining
+      velocity : Real;   // IW: Setpoint velocity for positioning
+      controller_actualPosition { ExternalWritable := 'False'} : Real;   // IR: Controller: Axis actual position
+      controller_actualCommand { ExternalWritable := 'False'} : Int;   // IR: Controller: Actual command
+      MIN_POSITION { ExternalWritable := 'False'} : Real;   // IR: Settings: Min. position
+      MAX_POSITION { ExternalWritable := 'False'} : Real;   // IR: Settings: Max. position
+      POSITION_TOLERANCE { ExternalWritable := 'False'} : Real;   // IR: Settings: Position tolerance
+      MAX_MOVEMENT_TIME { ExternalWritable := 'False'} : Time;   // IR: Watchdog time to cancel movements
+   END_VAR
+
+   VAR_OUTPUT 
+      forward { ExternalWritable := 'False'} : Bool;   // OR: 1=Forward
+      backward { ExternalWritable := 'False'} : Bool;   // OR: 1=Backward
+      positioning { ExternalWritable := 'False'} : Bool;   // OR: 1=Positioning
+      inPosition { ExternalWritable := 'False'} : Bool;   // OR: 1=In positiong (actualPosition == position)
+   END_VAR
+
+   VAR_IN_OUT 
+      ready { ExternalWritable := 'False'} : Bool;   // IOR: 1=Ready
+      hmiCommand { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt;   // IOX: HMI command
+      controller_command { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int;   // IOX: Controller: set command
+   END_VAR
+
+   VAR 
+      private { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct   // SX: Private static variables
+         movementTimer {InstructionName := 'TON_TIME'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : TON_TIME;
+         forward { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+         backward { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+         positioning { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+      END_STRUCT;
+   END_VAR
+
+   VAR_TEMP 
+      hmiFwd : Bool;
+      hmiBwd : Bool;
+      hmiPos : Bool;
+      noControllerCommand : Bool;
+      inMinArea : Bool;
+      inMaxArea : Bool;
+      clear : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      MC_CMD_0_NIL : Int := 0;
+      MC_CMD_1_STOP : Int := 1;
+      MC_CMD_4_JOG_FWD : Int := 4;
+      MC_CMD_5_JOG_BWD : Int := 5;
+      MC_CMD_8_ABSOLUTE_POS : Int := 8;
+      HMI_CMD_0000_NIL : UInt := 0;
+      HMI_CMD_0034_MANUAL_FWD : UInt := 34;
+      HMI_CMD_0035_MANUAL_BWD : UInt := 35;
+      HMI_CMD_0042_ABSOLUTE_POSITIONING : UInt := 42;
+   END_VAR
+
+
+BEGIN
+	(*--
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2025-06-20 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| TON_TIME |
+	
+	# Description
+	This function is used to move a Positioning Axis with jog forward, jog backward and absolute positioning commands.
+	
+	## HMI Commands
+	| uint | constant | description |
+	|:----:|:---------|:------------|
+	| 0 | HMI_CMD_00000_NIL | No command |
+	| 34 | HMI_CMD_00034_MANUAL_FWD | Manual forward |
+	| 35 | HMI_CMD_00035_MANUAL_BWD | Manual backward |
+	| 42 | HMI_CMD_00042_ABSOLUTE_POSITIONING | Absolute positioning |
+	
+	## Motion Control Commands
+	| int | constant | description |
+	|:---:|:---------|:------------|
+	| 0 | MC_CMD_0_NIL | No command |
+	| 1 | MC_CMD_1_STOP | Stop command |
+	| 4 | MC_CMD_4_JOG_FWD | Jog forward command |
+	| 5 | MC_CMD_5_JOG_BWD | Jog backward command |
+	| 8 | MC_CMD_8_ABSOLUTE_POS | Absoulte positioning command |
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	REGION Watchdog
+	  
+	  #private.movementTimer(IN := #hmiFwd OR #hmiBwd OR #hmiPos,
+	                         PT := #MAX_MOVEMENT_TIME);
+	  
+	  IF #private.movementTimer.Q THEN
+	    #hmiCommand := #HMI_CMD_0000_NIL;
+	  END_IF;
+	  
+	END_REGION
+	
+	REGION Update flags
+	  
+	  #hmiFwd := #hmiCommand = #HMI_CMD_0034_MANUAL_FWD;
+	  #hmiBwd := #hmiCommand = #HMI_CMD_0035_MANUAL_BWD;
+	  #hmiPos := #hmiCommand = #HMI_CMD_0042_ABSOLUTE_POSITIONING;
+	  
+	  #noControllerCommand := #controller_actualCommand = #MC_CMD_0_NIL;
+	  #inMinArea := #homed AND #controller_actualPosition > #MIN_POSITION;
+	  #inMaxArea := #homed AND #controller_actualPosition < #MAX_POSITION;
+	  
+	END_REGION ;
+	
+	REGION Forward
+	  
+	  #forward :=
+	  #manualOk AND #ready AND #hmiFwd AND
+	  (#inMaxArea OR NOT #homed) AND
+	  (#noControllerCommand OR #controller_actualCommand = #MC_CMD_4_JOG_FWD);
+	  
+	END_REGION
+	
+	REGION Backward
+	  
+	  #backward :=
+	  #manualOk AND #ready AND #hmiBwd AND
+	  (#inMinArea OR NOT #homed) AND
+	  (#noControllerCommand OR #controller_actualCommand = #MC_CMD_5_JOG_BWD);
+	  
+	END_REGION
+	
+	REGION Positioning
+	  
+	  #positioning :=
+	  #manualOk AND #ready AND #hmiPos AND #inMinArea AND #inMaxArea AND
+	  (#controller_actualCommand = #MC_CMD_0_NIL OR
+	  #controller_actualCommand = #MC_CMD_1_STOP OR
+	  #controller_actualCommand = #MC_CMD_8_ABSOLUTE_POS);
+	  
+	  #inPosition := ABS(#controller_actualPosition - #position) <= #POSITION_TOLERANCE AND #homed;
+	  
+	END_REGION
+	
+	REGION Set commands
+	  
+	  // Clear
+	  #clear := (NOT #forward AND #private.forward) OR (NOT #backward AND #private.backward) OR (NOT #positioning AND #private.positioning);
+	    
+	  #private.forward := #forward;
+	  #private.backward := #backward;
+	  #private.positioning := #positioning;
+	  
+	  // Set
+	  IF #forward THEN
+	    #controller_command := #MC_CMD_4_JOG_FWD;
+	    
+	  ELSIF #backward THEN
+	    #controller_command := #MC_CMD_5_JOG_BWD;
+	    
+	  ELSIF #positioning THEN
+	    #controller_command := #MC_CMD_8_ABSOLUTE_POS;
+	    
+	  ELSIF #clear THEN
+	    #controller_command := #MC_CMD_0_NIL;
+	    #hmiCommand := #HMI_CMD_0000_NIL;
+	  END_IF;
+	  
+	END_REGION ;
+	
+	REGION Save RLO
+	  
+	  ENO := true;
+	  
+	END_REGION
+	
+END_FUNCTION_BLOCK
+

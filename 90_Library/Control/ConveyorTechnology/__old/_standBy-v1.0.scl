@@ -1,0 +1,111 @@
+﻿FUNCTION_BLOCK "_standBy"
+TITLE = Function:Stand by
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/ConveyorTechnology'
+NAME : _standBy
+VERSION : 1.0
+   VAR_INPUT 
+      in00 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in01 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in02 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in03 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in04 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in05 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in06 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in07 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in08 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in09 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in10 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in11 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in12 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in13 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in14 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      in15 { ExternalWritable := 'False'} : Bool;   // IR: input variable to awake up
+      forceToAwakeUp { ExternalWritable := 'False'} : Bool;   // IR: 1=Force to awake up
+      forceToStandBy { ExternalWritable := 'False'} : Bool;   // IR: 1=Force to stand by
+      timeout { ExternalWritable := 'False'} : Time := T#30s;   // IR: Timeout to stand by
+   END_VAR
+
+   VAR_OUTPUT 
+      on { ExternalWritable := 'False'} : Bool;   // OR: 1=Is asleep
+      off { ExternalWritable := 'False'} : Bool;   // OR: 1=is awake
+      isAsleep { ExternalWritable := 'False'} : Bool;   // OR: 1=Is asleep
+      isAwake { ExternalWritable := 'False'} : Bool;   // OR: 1=is awake
+      ET { ExternalWritable := 'False'} : Time;   // OR: Elapsed time to stand by
+      RT { ExternalWritable := 'False'} : Time;   // OR: Remaining time to stand by
+   END_VAR
+
+   VAR 
+      private { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct   // SX: Private static variables
+         in { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : DInt;
+         awakeUpTimer {InstructionName := 'TOF_TIME'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : TOF_TIME;
+      END_STRUCT;
+   END_VAR
+
+   VAR_TEMP 
+      in : DInt;
+      awakeUp : Bool;
+   END_VAR
+
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-06-19 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| TOF_TIME |
+	
+# Description
+This function monitors the change of inputs to enter standby.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+	
+	// Pass to int
+	#in := 0;
+	#in.%X0 := #in00;
+	#in.%X1 := #in01;
+	#in.%X2 := #in02;
+	#in.%X3 := #in03;
+	#in.%X4 := #in04;
+	#in.%X5 := #in05;
+	#in.%X6 := #in06;
+	#in.%X7 := #in07;
+	
+	#in.%X8 := #in08;
+	#in.%X9 := #in09;
+	#in.%X10 := #in10;
+	#in.%X11 := #in11;
+	#in.%X12 := #in12;
+	#in.%X13 := #in13;
+	#in.%X14 := #in14;
+	#in.%X15 := #in15;
+	
+	#in.%X16 := #forceToAwakeUp;
+	#in.%X17 := #forceToStandBy;
+	
+	// standBy
+	#private.awakeUpTimer(IN:=#in <> #private.in,
+	                      PT:=#timeout,
+	                      Q=> #awakeUp,
+	                      ET=>#ET);
+	#private.in := #in;
+	
+	#isAwake:= #off := (#awakeUp OR #forceToAwakeUp) AND NOT #forceToStandBy;
+	#isAsleep:= #on := NOT #off;
+	
+	#RT := #timeout - #private.awakeUpTimer.ET;
+	
+	// Save RLO
+	ENO := true;
+	
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,36 @@
+﻿TYPE "nodeLinkDestToSource"
+TITLE = Type:Node link - destination to source
+AUTHOR : cyanezf
+FAMILY: Node
+VERSION : 1.1
+
+//(*--
+//# Falimy
+//* Node
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.1 | 2023-10-20 | cyanezf | `shortCycle` added |
+//| v1.0 | 2023-10-19 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+//
+//# Description
+//Node link - destination to source
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      readyToPickUp : Bool;   // 1=Node is ready to pick up object from source
+      pickedUp : Bool;   // 1=Node has picked up object
+      isRunning : Bool;   // 1=Mechanical device is running to pick up (motor running, robot picking, etc)
+      shortCycle : Bool;   // 1=Short cycle
+   END_STRUCT;
+
+END_TYPE
+

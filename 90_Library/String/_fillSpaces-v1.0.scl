@@ -1,0 +1,64 @@
+﻿FUNCTION "_fillSpaces" : String
+TITLE = Function:Fill spaces
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'String'
+NAME : _fillSpaces
+VERSION : 1.0
+
+   VAR_INPUT 
+      in : String;   // Source string
+      fillChar : Char;   // Fill char
+   END_VAR
+
+   VAR_IN_OUT 
+      newString : String;
+      sourceLength : Int;
+      destLength : Int;
+      i : Int;
+   END_VAR
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-03-24 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+
+# Description
+This function fill spaces with `fillChar`.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	#sourceLength := LEN(#in);
+	#destLength := MAX_LEN(#_fillSpaces);
+	
+	IF #sourceLength > #destLength THEN
+	  #_fillSpaces := '';
+	  ENO := false;
+	  RETURN;
+	END_IF;
+	
+	#newString := #in;
+	
+	FOR #i := 1 TO #sourceLength DO
+	  IF #newString[#i] = ' ' THEN
+	    #newString[#i] := #fillChar;
+	  END_IF;
+	END_FOR;
+	
+	// Return
+	#_fillSpaces := #newString;
+
+	// Save RLO
+	ENO := true;
+	
+END_FUNCTION
+

@@ -1,0 +1,35 @@
+﻿TYPE "deltatime"
+TITLE = Type:Deltatime
+AUTHOR : cyanezf
+FAMILY: 'Datetime/deltatime'
+VERSION : 1.0
+
+//(*--
+//# Falimy
+//* Datetime/deltatime
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2025-06-17 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Deltatime
+//
+//#
+//--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+
+   STRUCT
+      days : UDInt := 0;   // Days from 0 to 999_999_999 days
+      seconds : UDInt;   // Seconds from 0 to 86_399s (24 h * 60 m * 60 s)
+      nanoseconds : UDInt;   // Nanoseconds from 0 to 999_999_999ns
+   END_STRUCT;
+
+END_TYPE
+

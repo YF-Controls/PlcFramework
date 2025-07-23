@@ -1,0 +1,123 @@
+﻿FUNCTION_BLOCK "_encoderIncrement"
+TITLE = Function:Encoder increment
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Util'
+NAME : _encoderIncrement
+VERSION : 1.0
+   VAR_INPUT 
+      encoderValue { ExternalWritable := 'False'} : DInt;   // IR: Encoder value
+      MIN_VALUE { ExternalWritable := 'False'} : DInt := 0;   // IR: Min encoder value
+      MAX_VALUE { ExternalWritable := 'False'} : DInt := 16777215;   // IR: Max encoder value
+      MAX_INCREMENTS_PER_CYCLE { ExternalWritable := 'False'} : DInt := 100;   // IR: Max increments per cycle
+      ackn { ExternalWritable := 'False'} : Bool;   // IR: 1=Ackn errors
+      clear { ExternalWritable := 'False'} : Bool;   // IR: 1=Clear oversteps
+   END_VAR
+
+   VAR_OUTPUT 
+      increment { ExternalWritable := 'False'} : DInt;   // OR: Increment value
+      overstepError { ExternalWritable := 'False'} : Bool;   // OR: 1=Oversteps in one cycle
+   END_VAR
+
+   VAR 
+      prevEncoderValue { ExternalWritable := 'False'} : DInt;   // SR: Previous encoder value
+      stats { ExternalWritable := 'False'} : Struct   // SR: Statistics
+         oversteps { ExternalWritable := 'False'} : UDInt;   // SR: Oversteps
+         maxDecrement { ExternalWritable := 'False'} : DInt;   // SR: Max decrement
+         maxIncrement { ExternalWritable := 'False'} : DInt;   // SR: Max increment
+      END_STRUCT;
+      private { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct   // SX: Private static variables
+         acknFp { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // SX: Ackn fp
+         clearFp { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // SX: Clear fp
+         overstepError { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+      END_STRUCT;
+   END_VAR
+
+   VAR_TEMP 
+      rest : DInt;
+   END_VAR
+
+
+BEGIN
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2025-07-07 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	
+	# Description
+	This function returns the number of increments of an encoder in each scan cycle.
+	
+	Encoder value must be between `MIN_VALUE`and `MAX_VALUE`.
+	
+	`overstepError` is triggered when `increment`is more than +/- `MAX_INCREMENTS_PER_CYCLE`.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	
+	
+	// Error ackn.
+	IF #ackn AND NOT #private.acknFp THEN
+	  #private.overstepError := 0;
+	END_IF;
+	#private.acknFp := #ackn;
+	
+	// Clear oversteps
+	IF #clear AND NOT #private.clearFp THEN
+	  #stats.oversteps := 0;
+	  #stats.maxDecrement := 0;
+	  #stats.maxIncrement := 0;
+	END_IF;
+	#private.clearFp := #clear;
+	
+	// Clear increment
+	#increment := 0;
+	
+	// Check encoder change
+	IF #encoderValue <> #prevEncoderValue THEN
+	  
+	  #rest := #encoderValue - #prevEncoderValue;
+	  
+	  IF #rest > #MAX_INCREMENTS_PER_CYCLE THEN
+	    #increment := #MIN_VALUE - #encoderValue + #prevEncoderValue - #MAX_VALUE - 1;
+	    
+	  ELSIF  #encoderValue - #prevEncoderValue < - #MAX_INCREMENTS_PER_CYCLE THEN
+	    #increment := #MAX_VALUE - #prevEncoderValue + #encoderValue - #MIN_VALUE + 1;
+	    
+	  ELSE
+	    #increment := #rest;
+	    
+	  END_IF;
+	  
+	  // Set error
+	  IF #increment > #MAX_INCREMENTS_PER_CYCLE OR #increment < -#MAX_INCREMENTS_PER_CYCLE THEN
+	    #private.overstepError := true;
+	    #stats.oversteps += 1;
+	  END_IF;
+	  
+	  // Save max stats
+	  IF #increment > #stats.maxIncrement THEN
+	    #stats.maxIncrement := #increment;
+	  ELSIF #increment < #stats.maxDecrement THEN
+	    #stats.maxDecrement := #increment;
+	  END_IF;
+	  
+	END_IF;
+	
+	// Save previous
+	 #prevEncoderValue := #encoderValue;
+	 #overstepError := #private.overstepError;
+	 
+	// Save RLO
+	 ENO := NOT #overstepError;
+	 
+	 
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,39 @@
+﻿TYPE "alarmTraceGroupData"
+TITLE = Type:Alarm trace group data
+AUTHOR : cyanezf
+FAMILY: Alarm
+VERSION : 1.0
+
+//(*--
+//# Falimy
+//* Alarm
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2025-02-01 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+//| alarmTraceGroupLevel |
+// 
+//# Description
+//Alarm trace group data
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      level : USInt;   // 0=No alarm, 1=a1i Info, 2=a2w warning, 3=a3e error, 4=a4f emergency
+      object : UInt;   // Object ID
+      id : Int;   // Alarm ID
+      a1i { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 1 - Info
+      a2w { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 2 - Warning
+      a3e { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 3 - Error
+      a4f { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 4 - Emergency
+   END_STRUCT;
+
+END_TYPE
+

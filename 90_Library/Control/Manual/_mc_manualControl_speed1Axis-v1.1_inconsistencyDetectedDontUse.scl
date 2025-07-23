@@ -1,0 +1,123 @@
+﻿FUNCTION "_mc_manualControl_speed1Axis" : Void
+TITLE = Function:Manual Control for Speed Axis
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Manual'
+NAME : _mc_manualControl_speed1Axis
+VERSION : 1.1
+
+   VAR_INPUT 
+      manualOk : Bool;   // 1=Manual ok
+      controller_actualCommand : Int;   // Controller: Actual command
+      MAX_MOVEMENT_TIME : Time;   // Watchdog time to cancel movements
+   END_VAR
+
+   VAR_IN_OUT 
+      hmiCommand : UInt;   // HMI command
+      manual : "mc_manual_positioning1Axis";   // Manual structure
+      controller_command : Int;   // Controller: set command
+      aux_manualMovementTon {InstructionName := 'TON_TIME'; LibVersion := '1.0'} : TON_TIME;   // Aux timer
+      aux_fp0 : Bool;   // Aux flag
+      aux_fp1 : Bool;   // Aux flag
+      aux_fp2 : Bool;   // Aux flag
+   END_VAR
+
+   VAR CONSTANT 
+      AXIS_0V : UInt := 0;
+      AXIS_1L : UInt := 1;
+      AXIS_2R : UInt := 2;
+      MC_CMD_0_NIL : Int := 0;
+      MC_CMD_1_STOP : Int := 1;
+      MC_CMD_4_JOG_FWD : Int := 4;
+      MC_CMD_5_JOG_BWD : Int := 5;
+      HMI_CMD_0000_NIL : UInt := 0;
+      HMI_CMD_0034_MANUAL_FWD : UInt := 34;
+      HMI_CMD_0035_MANUAL_BWD : UInt := 35;
+   END_VAR
+
+
+BEGIN
+(*--
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.1 | 2024-08-16 | cyanezf | Refactor to scl |
+| v1.0 | 2023-12-12 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| mc_manual_positioning1Axis |
+| TON_TIME |
+	
+# Description
+This function is used to move a Speed Axis with jog forward and jog backward commands.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	REGION Watchdog
+	  // HMI command 34 sets forward movement
+	  // HMI command 35 sets backward movement
+	  
+	  #aux_manualMovementTon(IN := #hmiCommand = #HMI_CMD_0034_MANUAL_FWD OR #hmiCommand = #HMI_CMD_0035_MANUAL_BWD,
+	                         PT := #MAX_MOVEMENT_TIME);
+	  
+	  IF #aux_manualMovementTon.Q THEN
+	    #hmiCommand := #HMI_CMD_0000_NIL;
+	  END_IF;
+	  
+	END_REGION
+	
+	REGION Forward
+	  
+	  #manual.forward :=
+	  #manualOk AND
+	  #hmiCommand = #HMI_CMD_0034_MANUAL_FWD AND
+	  (#controller_actualCommand = #MC_CMD_0_NIL OR #controller_actualCommand = #MC_CMD_4_JOG_FWD);
+	  
+	  IF #manual.forward THEN
+	    #controller_command := #MC_CMD_4_JOG_FWD;
+	  END_IF;
+	  
+	END_REGION
+	
+	REGION Backward
+	  
+	  #manual.backward :=
+	  #manualOk AND
+	  #hmiCommand = #HMI_CMD_0035_MANUAL_BWD AND
+	  (#controller_actualCommand = #MC_CMD_0_NIL OR #controller_actualCommand = #MC_CMD_5_JOG_BWD);
+	  
+	  IF #manual.backward THEN
+	    #controller_command := #MC_CMD_5_JOG_BWD;
+	  END_IF;
+	  
+	END_REGION
+	
+	REGION Clear commands
+	  
+	  IF (NOT #manual.forward AND #aux_fp0) OR
+	    (NOT #manual.backward AND #aux_fp1) THEN
+	    
+	    #controller_command := #MC_CMD_0_NIL;
+	    #hmiCommand := #HMI_CMD_0000_NIL;
+	    
+	  END_IF;
+	  
+	  #aux_fp0 := #manual.forward;
+	  #aux_fp1 := #manual.backward;
+	  
+	END_REGION
+	
+	
+	REGION Save RLO
+	  
+	  ENO := true;
+	  
+	END_REGION
+	
+	
+END_FUNCTION
+

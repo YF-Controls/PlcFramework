@@ -1,0 +1,76 @@
+﻿FUNCTION_BLOCK "_teachPinPositionValues"
+TITLE = Function:Teach pin position values
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Util'
+NAME : _teachPinPositionValues
+VERSION : 1.0
+   VAR_INPUT 
+      pin { ExternalWritable := 'False'} : Bool;   // IR: Pin sensor
+      position { ExternalWritable := 'False'} : Real;   // IR: Current position
+      direction { ExternalWritable := 'False'} : Bool;   // IR: 0=Forward; 1=Backward
+   END_VAR
+
+   VAR_OUTPUT 
+      fwdPosEdgePosition { ExternalWritable := 'False'} : Real;   // OR: Forward positive edge position
+      fwdNegEdgePosition { ExternalWritable := 'False'} : Real;   // OR: Forward negative edge position
+      bwdPosEdgePosition { ExternalWritable := 'False'} : Real;   // OR: Backward positive edge position
+      bwdNegEdgePosition { ExternalWritable := 'False'} : Real;   // OR: Backward negative edge position
+   END_VAR
+
+   VAR 
+      fp { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // SX: Private static variables
+   END_VAR
+
+   VAR_TEMP 
+      pinFp : Bool;
+      pinFn : Bool;
+   END_VAR
+
+
+BEGIN
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2024-02-15 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	
+	# Description
+	This function catches the position when `pin` sensor edges are detected in forward and backward direction.
+	
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	// Update edges
+	#pinFp := #pin AND NOT #fp;
+	#pinFn := NOT #pin AND #fp;
+	#fp := #pin;
+	
+	IF #pinFp AND NOT #direction THEN
+	  #fwdPosEdgePosition := #position;
+	END_IF;
+	
+	IF #pinFp AND #direction THEN
+	  #bwdPosEdgePosition := #position;
+	END_IF;
+	
+	IF #pinFn AND NOT #direction THEN
+	  #fwdNegEdgePosition := #position;
+	END_IF;
+	
+	IF #pinFn AND #direction THEN
+	  #bwdNegEdgePosition := #position;
+	END_IF;
+	
+	// Savel RLO
+	ENO := true;
+	
+END_FUNCTION_BLOCK
+

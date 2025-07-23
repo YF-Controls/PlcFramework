@@ -1,0 +1,130 @@
+﻿FUNCTION "_alarmTraceGroupCollector" : Void
+TITLE = Function:Group collects singble bit alarm trace
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : Alarm
+NAME : _alarmTraceGroupCollector
+VERSION : 1.0
+   VAR_INPUT 
+      object : UInt;   // 0=No object; 1=Object ID
+      a1i_triggered : Bool;   // 1=Alarm level 1 - Info - triggered
+      a1i_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 1 - info
+      a2w_triggered : Bool;   // 1=Alarm level 2 - Warning - triggered
+      a2w_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 2 - warning
+      a3e_triggered : Bool;   // 1=Alarm level 3 - Error - triggered
+      a3e_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 3 - error
+      a4f_triggered : Bool;   // 1=Alarm level 4 - Emergency - triggered
+      a4f_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm lelvel 4 - emergency
+   END_VAR
+
+   VAR_IN_OUT 
+      group : "alarmTraceGroupData";   // Alarm trace group
+   END_VAR
+
+   VAR CONSTANT 
+      NO_ALARM : Int := 16#0000;
+      NO_OBJECT : UInt := 0;
+   END_VAR
+
+BEGIN
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-01-27 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| alarmTraceGroupData |
+
+# Description
+This function updates group variables according to singble bit variables.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	// Info alarms
+	IF #a1i_triggered THEN
+	  
+	  // Update id, object
+	  IF #group.a1i.id = #NO_ALARM AND #group.a1i.object = #NO_OBJECT THEN
+	    #group.a1i.id := #a1i_id;
+	    #group.a1i.object := #object;
+	  END_IF;
+	  
+	  // Update triggered  
+	  #group.a1i.collector := 1;
+	  
+	ELSE
+	  // Clear id, object
+	  IF #group.a1i.id = #a1i_id AND #group.a1i.object = #object THEN
+	    #group.a1i.id := #NO_ALARM;
+	    #group.a1i.object := #NO_OBJECT;
+	  END_IF;
+	END_IF;
+	
+	// Warning alarms
+	IF #a2w_triggered THEN
+	  // Update id, object
+	  IF #group.a2w.id = #NO_ALARM AND #group.a2w.object = #NO_OBJECT THEN
+	    #group.a2w.id := #a2w_id;
+	    #group.a2w.object := #object;
+	  END_IF;
+	  
+	  // Update triggered  
+	  #group.a2w.collector := 1;
+	  
+	ELSE
+	  // Clear id, object
+	  IF #group.a2w.id = #a2w_id AND #group.a2w.object = #object THEN
+	    #group.a2w.id := #NO_ALARM;
+	    #group.a2w.object := #NO_OBJECT;
+	  END_IF;
+	END_IF;
+	
+	// Error alarms
+	IF #a3e_triggered THEN
+	  // Update id, object
+	  IF #group.a3e.id = #NO_ALARM AND #group.a3e.object = #NO_OBJECT THEN
+	    #group.a3e.id := #a3e_id;
+	    #group.a3e.object := #object;
+	  END_IF;
+	  
+	  // Update triggered  
+	  #group.a3e.collector := 1;
+	  
+	ELSE
+	  // Clear id, object
+	  IF #group.a3e.id = #a3e_id AND #group.a3e.object = #object THEN
+	    #group.a3e.id := #NO_ALARM;
+	    #group.a3e.object := #NO_OBJECT;
+	  END_IF;
+	END_IF;
+	
+	// Emergency alarms
+	IF #a4f_triggered THEN
+	  // Update id, object
+	  IF #group.a4f.id = #NO_ALARM AND #group.a4f.object = #NO_OBJECT THEN
+	    #group.a4f.id := #a4f_id;
+	    #group.a4f.object := #object;
+	  END_IF;
+	  
+	  // Update triggered  
+	  #group.a4f.collector := 1;
+	  
+	ELSE
+	  // Clear id, object
+	  IF #group.a4f.id = #a4f_id AND #group.a4f.object = #object THEN
+	    #group.a4f.id := #NO_ALARM;
+	    #group.a4f.object := #NO_OBJECT;
+	  END_IF;
+	END_IF;
+	
+	// Save RLO
+	ENO := 1;
+	
+END_FUNCTION
+

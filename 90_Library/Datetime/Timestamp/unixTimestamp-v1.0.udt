@@ -1,0 +1,33 @@
+﻿TYPE "unixTimestamp"
+TITLE = Type:Unix timestamp
+AUTHOR : cyanezf
+FAMILY: 'Datetime/timestamp'
+VERSION : 1.0
+
+//(*--
+//# Falimy
+//* Datetime/timestamp
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2025-06-17 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Unix timestamp
+//
+//#
+//--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      seconds : ULInt;   // All DTL range as unix timestamp range for Siemens PLCs
+      nanoseconds : UDInt;   // 0 to 999_999_999 ns
+   END_STRUCT;
+
+END_TYPE
+

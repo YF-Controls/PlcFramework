@@ -1,0 +1,70 @@
+﻿FUNCTION_BLOCK "_motorStarter_3RK1_308"
+TITLE = Function:Motorstarter 3RK1-308
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Controller'
+NAME : _motorStarter_3RK1_308
+VERSION : 1.1
+
+   VAR_INPUT 
+      controlOn { ExternalWritable := 'False'} : Bool;   // IR: 1=Control on
+      emrgStopOk { ExternalWritable := 'False'} : Bool;   // IR: 1=Emergency ok
+      runForward { ExternalWritable := 'False'} : Bool;   // IR: 1=Run forward
+      runBackward { ExternalWritable := 'False'} : Bool;   // IR: 1=Run backward
+      ackn { ExternalWritable := 'False'} : Bool;   // IR: 1=Ackn
+   END_VAR
+
+   VAR_OUTPUT 
+      isRunning { ExternalWritable := 'False'} : Bool;   // OR: 1=Is running
+      direction { ExternalWritable := 'False'} : Bool;   // OR: 0=Forward; 1=Backward
+   END_VAR
+
+   VAR_IN_OUT 
+      status : "motorStarter_3RK1_308_status";   // IOX: PI Status 
+      control : "motorStarter_3RK1_308_control";   // IOX: PQ Control
+   END_VAR
+
+BEGIN
+(*--
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.1 | 2024-05-09 | cyanezf | Refactor to scl |
+| v1.0 | 2023-06-06 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| motorStarter_3RK1_308_status |
+| motorStarter_3RK1_308_control |
+
+# Description
+This function controls Siemens Motorstarter 3RK1-308.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
+	// Run
+	#control.motorCw := #controlOn AND #emrgStopOk AND #runForward AND NOT #runBackward;
+	#control.motorCcw := #controlOn AND #emrgStopOk AND NOT #runForward AND #runBackward;
+	
+	// Reset
+	#control.tripReset := #ackn;
+	
+	// Clear
+	#control.coldStart :=
+	#control.emergencyStart := 0;
+	
+	// Disable quick stop
+	#control.disableQuickStop := #emrgStopOk;
+	
+	// Is running and direction
+	#isRunning := #status.motorOn;
+	#direction := #status.motorCcw AND NOT #status.motorCw;
+	
+	// Save RLO
+	ENO := true;
+	
+END_FUNCTION_BLOCK
+

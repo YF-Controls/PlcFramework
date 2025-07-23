@@ -1,0 +1,33 @@
+﻿TYPE "tcpCommunicationControl"
+TITLE = Type:TCP Communication control
+AUTHOR : cyanezf
+FAMILY : 'Communication/TCP'
+VERSION : 1.0
+
+//(*--
+//# Falimy
+//* Communication/TCP
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2024-11-07 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//TCP communication control
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
+   STRUCT
+      length : UDInt;   // SW: 0..N=Data length to be sent/received
+      command : Int;   // SW: Command. 0=Nop; 1=Sending request; 2=Busy; 3=Done (Data was sent/received); 0x8000=Error
+   END_STRUCT;
+
+END_TYPE
+
