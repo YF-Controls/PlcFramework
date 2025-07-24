@@ -43,7 +43,7 @@
 | Super | Group | Object | Function | Comment |
 |:-----:|:-----:|:------:|:---------|:--------|
 | |
-| | | | | __Main Subroutine__ | |
+| | | | __Main Subroutine__ | |
 | |
 | * | * | * | _alarmTraceGlobalUpdater | Called on top one time |
 | 1..s | * | * | _alarmTraceSuperUpdater | Called on top one time |
