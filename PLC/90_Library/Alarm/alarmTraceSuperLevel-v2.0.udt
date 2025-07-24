@@ -1,8 +1,8 @@
 ﻿TYPE "alarmTraceSuperLevel"
 TITLE = Type:Alarm trace super level
+AUTHOR : cyanezf
 FAMILY: Alarm
-VERSION : 1.0
-
+VERSION : 2.0
 //(*--
 //# Falimy
 //* Alarm
@@ -10,6 +10,7 @@ VERSION : 1.0
 //# Log
 //| version | date | author | description |
 //|:-------:|:----:|:------:|:------------|
+//| v2.0 | 2025-07-24 | cyanezf | Triggered changes to UINT |
 //| v1.0 | 2025-02-01 | cyanezf | First version |
 //
 //# Dependencies
@@ -22,13 +23,12 @@ VERSION : 1.0
 //#
 //_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 //--*)
-
    STRUCT
       group : UInt;   // 0=No group, 1..N=Group id
       object : UInt;   // 0=No object; 1..N=Object id
       id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm
-      triggered : Bool;   // 1=Some alarm triggered
-      collector : Bool;   // Alarm collector
+      triggered : UInt;   // N=Some alarm triggered
+      collector : UInt;   // Alarm collector
    END_STRUCT;
 
 END_TYPE

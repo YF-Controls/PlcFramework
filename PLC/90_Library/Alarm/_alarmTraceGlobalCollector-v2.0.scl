@@ -1,11 +1,10 @@
 ﻿FUNCTION "_alarmTraceGlobalCollector" : Void
-TITLE = Function:Global collects super alarm trace
+TITLE = Function:Alarm trace - Global collector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : Alarm
 NAME : _alarmTraceGlobalCollector
-VERSION : 1.0
-
+VERSION : 2.0
    VAR_INPUT 
       superId : UInt;   // 0=No group; 1=Group ID
    END_VAR
@@ -24,29 +23,30 @@ VERSION : 1.0
 
 
 BEGIN
-(*--
-
-# Log
-| version | date | author | description |
-|:-------:|:----:|:------:|:------------|
-| v1.0 | 2025-01-27 | cyanezf | First version |
-
-# Dependencies
-| Dependency |
-|:-----------|
-| alarmTraceSuperData |
-| alarmTraceGlobalData |
-
-# Description
-This function updates global variables according to super variables.
-
-#
-_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
---*)
-
-
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v2.0 | 2025-07-24 | cyanezf | update new UDT |
+	| v1.0 | 2025-01-27 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| alarmTraceSuperData |
+	| alarmTraceGlobalData |
+	
+	# Description
+	This function updates global variables according to super variables.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	
 	// Info alarms
-	IF #super.a1i.triggered THEN
+	IF #super.a1i.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #global.a1i.id = #NO_ALARM AND #global.a1i.object = #NO_OBJECT AND #global.a1i.group = #NO_GROUP AND #global.a1i.super = #NO_SUPER THEN
@@ -57,7 +57,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #global.a1i.collector := 1;
+	  #global.a1i.collector += #super.a1i.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -68,9 +68,9 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	    #global.a1i.super := #NO_SUPER;
 	  END_IF;
 	END_IF;
-		
+	
 	// Warning alarms
-	IF #super.a2w.triggered THEN
+	IF #super.a2w.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #global.a2w.id = #NO_ALARM AND #global.a2w.object = #NO_OBJECT AND #global.a2w.group = #NO_GROUP AND #global.a3e.super = #NO_SUPER THEN
@@ -81,7 +81,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #global.a2w.collector := 1;
+	  #global.a2w.collector += #super.a2w.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -92,12 +92,12 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	    #global.a2w.super := #NO_SUPER;
 	  END_IF;
 	END_IF;
-		
+	
 	// Error alarms
-	IF #super.a3e.triggered THEN
+	IF #super.a3e.triggered > 0 THEN
 	  
 	  // Update id, object
-	  IF #global.a3e.id = #NO_ALARM AND #global.a3e.object = #NO_OBJECT AND #global.a3e.group = #NO_GROUP  AND #global.a3e.super = #NO_SUPER THEN
+	  IF #global.a3e.id = #NO_ALARM AND #global.a3e.object = #NO_OBJECT AND #global.a3e.group = #NO_GROUP AND #global.a3e.super = #NO_SUPER THEN
 	    #global.a3e.id := #super.a3e.id;
 	    #global.a3e.object := #super.a3e.object;
 	    #global.a3e.group := #super.a3e.group;
@@ -105,7 +105,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #global.a3e.collector := 1;
+	  #global.a3e.collector += #super.a3e.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -118,7 +118,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Emergency alarms
-	IF #super.a4f.triggered THEN
+	IF #super.a4f.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #global.a4f.id = #NO_ALARM AND #global.a4f.object = #NO_OBJECT AND #global.a4f.group = #NO_GROUP AND #global.a4f.super = #NO_SUPER THEN
@@ -129,7 +129,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #global.a4f.collector := 1;
+	  #global.a4f.collector += #super.a4f.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -140,9 +140,9 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	    #global.a4f.super := #NO_SUPER;
 	  END_IF;
 	END_IF;
-		
+	
 	// Save RLO
 	ENO := 1;
-
+	
 END_FUNCTION
 

@@ -4,10 +4,9 @@ TITLE = Function:Update alarm ID, check 8 bits
 AUTHOR : cyanezf
 FAMILY : Alarm
 NAME : _alarmBit08Id
-VERSION : 1.0
-
+VERSION : 2.0
    VAR_INPUT 
-      triggered : Bool;   // 1=Some alarm in controller alarm group
+      triggered : UInt;   // N=Some alarm in controller alarm group
       a00 : Bool;   // 1=Alarm
       a00_id : Int;   // 0=No ID; 0xHHHH=Some alarm ID
       a01 : Bool;   // 1=Alarm
@@ -27,35 +26,37 @@ VERSION : 1.0
    END_VAR
 
    VAR_IN_OUT 
-      id : Int; // Alarm id variable in controller alarm group
+      id : Int;   // Alarm id variable in controller alarm group
    END_VAR
 
    VAR CONSTANT 
       NO_ALARM : Int := 0;
    END_VAR
 
+
 BEGIN
-(*--
-
-# Log
-| version | date | author | description |
-|:-------:|:----:|:------:|:------------|
-| v1.0 | 2025-01-27 | cyanezf | First version |
-
-# Dependencies
-| Dependency |
-|:-----------|
-
-# Description
-Alarm `id` is set with `aXX_id` when `a00` is true and `id` is equal to `NO_ALARM`.
-Alarm `id` is set with `NO_ALARM` when `triggered` is false;
-
-#
-_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
---*)
-
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v2.0 | 2025-07-24 | cyanezf | triggered changes to UINT |
+	| v1.0 | 2025-01-27 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	
+	# Description
+	Alarm `id` is set with `aXX_id` when `a00` is true and `id` is equal to `NO_ALARM`.
+	Alarm `id` is set with `NO_ALARM` when `triggered` is false;
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
 	// Clear if not triggered
-	IF NOT #triggered THEN
+	IF #triggered = 0 THEN
 	  #id := #NO_ALARM;
 	  ENO := true;
 	  RETURN;

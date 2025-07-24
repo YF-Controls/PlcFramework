@@ -1,5 +1,9 @@
 ﻿TYPE "alarmTraceSuperData"
 TITLE = Type:Alarm trace super data
+AUTHOR : cyanezf
+FAMILY: Alarm
+VERSION : 2.0
+
 //(*--
 //# Falimy
 //* Alarm
@@ -7,6 +11,7 @@ TITLE = Type:Alarm trace super data
 //# Log
 //| version | date | author | description |
 //|:-------:|:----:|:------:|:------------|
+//| v2.0 | 2025-04-24 | cyanezf | triggered changed to UINT |
 //| v1.0 | 2025-02-01 | cyanezf | First version |
 //
 //# Dependencies

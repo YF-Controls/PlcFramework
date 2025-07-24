@@ -1,11 +1,10 @@
 ﻿FUNCTION "_alarmTraceSuperCollector" : Void
-TITLE = Function:Super collects group alarm trace
+TITLE = Function:Alarm trace - Super collector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : Alarm
 NAME : _alarmTraceSuperCollector
-VERSION : 1.0
-
+VERSION : 2.0
    VAR_INPUT 
       groupId : UInt;   // 0=No group; 1=Group ID
    END_VAR
@@ -21,29 +20,31 @@ VERSION : 1.0
       NO_GROUP : UInt := 0;
    END_VAR
 
+
 BEGIN
-(*--
-
-# Log
-| version | date | author | description |
-|:-------:|:----:|:------:|:------------|
-| v1.0 | 2025-01-27 | cyanezf | First version |
-
-# Dependencies
-| Dependency |
-|:-----------|
-| alarmTraceGroupData |
-| alarmTraceSuperData |
-
-# Description
-This function updates super variables according to group variables.
-
-#
-_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
---*)
-
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v2.0 | 2025-07-24 | cyanezf | Updated collector and triggered |
+	| v1.0 | 2025-01-27 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| alarmTraceGroupData |
+	| alarmTraceSuperData |
+	
+	# Description
+	This function updates super variables according to group variables.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
 	// Info alarms
-	IF #group.a1i.triggered THEN
+	IF #group.a1i.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #super.a1i.id = #NO_ALARM AND #super.a1i.object = #NO_OBJECT AND #super.a1i.group = #NO_GROUP THEN
@@ -53,7 +54,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #super.a1i.collector := 1;
+	  #super.a1i.collector += #group.a1i.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -65,7 +66,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Warning alarms
-	IF #group.a2w.triggered THEN
+	IF #group.a2w.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #super.a2w.id = #NO_ALARM AND #super.a2w.object = #NO_OBJECT AND #super.a2w.group = #NO_GROUP THEN
@@ -75,7 +76,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #super.a2w.collector := 1;
+	  #super.a2w.collector += #group.a2w.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -87,7 +88,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Error alarms
-	IF #group.a3e.triggered THEN
+	IF #group.a3e.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #super.a3e.id = #NO_ALARM AND #super.a3e.object = #NO_OBJECT AND #super.a3e.group = #NO_GROUP THEN
@@ -97,7 +98,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #super.a3e.collector := 1;
+	  #super.a3e.collector += #group.a3e.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -109,7 +110,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Emergency alarms
-	IF #group.a4f.triggered THEN
+	IF #group.a4f.triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #super.a4f.id = #NO_ALARM AND #super.a4f.object = #NO_OBJECT AND #super.a4f.group = #NO_GROUP THEN
@@ -119,7 +120,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #super.a4f.collector := 1;
+	  #super.a4f.collector += #group.a4f.triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -132,6 +133,6 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	
 	// Save RLO
 	ENO := 1;
-
+	
 END_FUNCTION
 

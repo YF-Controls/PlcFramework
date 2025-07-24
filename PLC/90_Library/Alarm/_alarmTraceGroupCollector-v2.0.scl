@@ -1,19 +1,19 @@
 ﻿FUNCTION "_alarmTraceGroupCollector" : Void
-TITLE = Function:Group collects singble bit alarm trace
+TITLE = Function:Alarm trace - Group collector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : Alarm
 NAME : _alarmTraceGroupCollector
-VERSION : 1.0
+VERSION : 2.0
    VAR_INPUT 
       object : UInt;   // 0=No object; 1=Object ID
-      a1i_triggered : Bool;   // 1=Alarm level 1 - Info - triggered
+      a1i_triggered : UInt;   // N=Alarm level 1 - Info - triggered
       a1i_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 1 - info
-      a2w_triggered : Bool;   // 1=Alarm level 2 - Warning - triggered
+      a2w_triggered : UInt;   // N=Alarm level 2 - Warning - triggered
       a2w_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 2 - warning
-      a3e_triggered : Bool;   // 1=Alarm level 3 - Error - triggered
+      a3e_triggered : UInt;   // N=Alarm level 3 - Error - triggered
       a3e_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm level 3 - error
-      a4f_triggered : Bool;   // 1=Alarm level 4 - Emergency - triggered
+      a4f_triggered : UInt;   // N=Alarm level 4 - Emergency - triggered
       a4f_id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm lelvel 4 - emergency
    END_VAR
 
@@ -26,28 +26,30 @@ VERSION : 1.0
       NO_OBJECT : UInt := 0;
    END_VAR
 
+
 BEGIN
-(*--
-
-# Log
-| version | date | author | description |
-|:-------:|:----:|:------:|:------------|
-| v1.0 | 2025-01-27 | cyanezf | First version |
-
-# Dependencies
-| Dependency |
-|:-----------|
-| alarmTraceGroupData |
-
-# Description
-This function updates group variables according to singble bit variables.
-
-#
-_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
---*)
-
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v2.0 | 2025-07-24 | cyanezf | Updated collector and triggered |
+	| v1.0 | 2025-01-27 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| alarmTraceGroupData |
+	
+	# Description
+	This function updates group variables according to singble bit variables.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
 	// Info alarms
-	IF #a1i_triggered THEN
+	IF #a1i_triggered > 0 THEN
 	  
 	  // Update id, object
 	  IF #group.a1i.id = #NO_ALARM AND #group.a1i.object = #NO_OBJECT THEN
@@ -56,7 +58,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #group.a1i.collector := 1;
+	  #group.a1i.collector += #a1i_triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -67,7 +69,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Warning alarms
-	IF #a2w_triggered THEN
+	IF #a2w_triggered  > 0 THEN
 	  // Update id, object
 	  IF #group.a2w.id = #NO_ALARM AND #group.a2w.object = #NO_OBJECT THEN
 	    #group.a2w.id := #a2w_id;
@@ -75,7 +77,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #group.a2w.collector := 1;
+	  #group.a2w.collector += #a2w_triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -86,7 +88,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Error alarms
-	IF #a3e_triggered THEN
+	IF #a3e_triggered > 0 THEN
 	  // Update id, object
 	  IF #group.a3e.id = #NO_ALARM AND #group.a3e.object = #NO_OBJECT THEN
 	    #group.a3e.id := #a3e_id;
@@ -94,7 +96,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #group.a3e.collector := 1;
+	  #group.a3e.collector += #a3e_triggered;
 	  
 	ELSE
 	  // Clear id, object
@@ -105,7 +107,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	END_IF;
 	
 	// Emergency alarms
-	IF #a4f_triggered THEN
+	IF #a4f_triggered > 0 THEN
 	  // Update id, object
 	  IF #group.a4f.id = #NO_ALARM AND #group.a4f.object = #NO_OBJECT THEN
 	    #group.a4f.id := #a4f_id;
@@ -113,7 +115,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  END_IF;
 	  
 	  // Update triggered  
-	  #group.a4f.collector := 1;
+	  #group.a4f.collector += #a4f_triggered;
 	  
 	ELSE
 	  // Clear id, object
