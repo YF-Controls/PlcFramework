@@ -1,12 +1,12 @@
 ﻿TYPE "queueInstanceAttributes"
 TITLE = Type:Queue instance attributes
 AUTHOR : cyanezf
-FAMILY: AbstractDataType
+FAMILY: 'ADT/Queue'
 VERSION : 2.0
 
 //(*--
 //# Falimy
-//* AbstractDataType
+//* 'ADT/Queue'
 //
 //# Log
 //| version | date | author | description |

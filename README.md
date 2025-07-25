@@ -1,5 +1,7 @@
 # PLC Coding Style
 
+[TOC]
+
 ## 1. Data
 
 ### 1.1. Constants

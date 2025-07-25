@@ -1,5 +1,7 @@
 # Alarm Library
 
+[TOC]
+
 ## Data types
 
 | Data type | Dependency |

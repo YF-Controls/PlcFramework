@@ -2,7 +2,7 @@
 TITLE = Function:Stack
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : AbstractDataType
+FAMILY : 'ADT/Stack'
 NAME : _stack
 VERSION : 1.1
    VAR_INPUT 

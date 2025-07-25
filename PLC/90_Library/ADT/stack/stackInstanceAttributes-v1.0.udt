@@ -1,11 +1,11 @@
 ﻿TYPE "stackInstanceAttributes"
 TITLE = Type: Stack Instance Attributes
 AUTHOR : cyanezf
-FAMILY: AbstractDataType
+FAMILY:  'ADT/Stack'
 VERSION : 1.0
 //(*--
 //# Falimy
-//* AbstractDataType
+//* 'ADT/Stack'
 //
 //# Log
 //| version | date | author | description |

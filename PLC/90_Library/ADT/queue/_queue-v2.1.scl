@@ -2,7 +2,7 @@
 TITLE = Function:Queue
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : AbstractDataType
+FAMILY : 'ADT/Queue'
 NAME : _queue
 VERSION : 2.1
 
