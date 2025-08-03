@@ -65,7 +65,7 @@ This function convert a datetime to string.
 | 2 | FORMAT_2_TIME | Time: hh:mm:ss[,000[000[000]]] |
 | 3 | FORMAT_3_SERIALIZED_DAT | Serialized date and time: yyyymmddhhmmss[000[000[000]]] |
 | 4 | FORMAT_4_SERIALIZED_DATE | Serialized date: yyyymmdd |
-| 5 | FORMAT_5_SERIALIZED_TIME | Serialized time: ddhhmmss[000[000[000]]] |
+| 5 | FORMAT_5_SERIALIZED_TIME | Serialized time: hhmmss[000[000[000]]] |
 | 6 | FORMAT_6_JSON_DAT | Serialized date and time as JSON yyyy-mm-ddThh:mm:ss[.000] |
 
 ## Second submultiples
