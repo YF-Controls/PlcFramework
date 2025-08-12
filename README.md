@@ -57,7 +57,7 @@
 * F_CONTAINER_NAME
 _Applicable in Siemens Datablock: DB or DI_
 
-## 2. Enumations
+## 2. Enumerations
 
 * __Operating mode__
 
@@ -140,7 +140,6 @@ _Applicable in Siemens Datablock: DB or DI_
 | 1 | Running forward |
 | 3 | Running backward |
 
-
 ## 3. Code
 
 ### 3.1. Interruptions / Main Subroutines
@@ -217,6 +216,4 @@ _Applicable in Siemens Datablock: DB or DI_
 | 91_Vendor | Vendor Libraries |
 | 92_Custom | Custom Library |
 
-## 5. Program Calling Hierarchy
 
-1. Background function

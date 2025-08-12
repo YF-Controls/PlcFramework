@@ -37,6 +37,7 @@
 | Collect | _alarmTraceGroupCollector | alarmTraceGroupData |
 | Update | _alarmTraceSuperUpdater | alarmTraceSuperData |
 | Collect | _alarmTraceSuperCollector | alarmTraceGroupData<br>alarmTraceSuperData |
+| Collect | _alarmTraceRemoteSuperCollector | alarmTraceSuperData |
 | Update | _alarmTraceGlobalUpdater | alarmTraceGlobalData |
 | Collect | _alarmTraceGlobalCollector | alarmTraceSuperData<br>alarmTraceGlobalData |
 
@@ -126,6 +127,9 @@ OB1
 │   │   |   └── _alarmTraceGroupCollector()
 │   |   |
 │   |   └── _alarmTraceSuperCollector()
+│   |
+│   ├── Group X (From remote system)
+│   |   └── _alarmTraceRemoteSuperCollector()
 │   |
 │   └── _alarmTraceGlobalCollector()
 │
