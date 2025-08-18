@@ -215,5 +215,3 @@ _Applicable in Siemens Datablock: DB or DI_
 | 90_Library | Standar Library |
 | 91_Vendor | Vendor Libraries |
 | 92_Custom | Custom Library |
-
-
