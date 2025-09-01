@@ -4,7 +4,7 @@ TITLE = Function:Emergenyc Stop Circuit
 AUTHOR : cyanezf
 FAMILY : System
 NAME : _esc
-VERSION : 5.3
+VERSION : 5.4
    VAR_INPUT 
       F_emrgCircuitOk { ExternalWritable := 'False'} : Bool := 1;   // IR: 1=Emergency circuit Ok
       F_emrgStopOk { ExternalWritable := 'False'} : Bool := 1;   // IR: 1=Emergency stop Ok
@@ -108,6 +108,7 @@ BEGIN
 	# Log
 	| version | date | author | description |
 	|:-------:|:----:|:------:|:------------|
+	| v5.4 | 2025-09-01 | cyanezf | Bugs fixed, error and emrg. ackn.
 	| v5.3 | 2025-06-19 | cyanezf | Delay `o.om.emrgStopOk` and added `settings.DELAY_EMRG_STOP_OK` |
 	| v5.2 | 2025-06-07 | cyanezf | Fixed general bugs |
 	| v5.1 | 2025-06-04 | cyanezf | Fixed bugs when mode changes |
@@ -248,11 +249,11 @@ BEGIN
 	        #hmiCommand := #HMI_CMD_00000_NIL;
 	        
 	      #HMI_CMD_00011_ERROR_ACKN: // Set
-	        #private.errorAckn := true;
+	        #private.errorAckn := NOT #private.errorAckn;
 	        #hmiCommand := #HMI_CMD_00000_NIL;
 	        
 	      #HMI_CMD_00012_EMRG_ACKN: // Set
-	        #private.emrgAckn := true;
+	        #private.emrgAckn := NOT #private.emrgAckn;
 	        #hmiCommand := #HMI_CMD_00000_NIL;
 	        
 	      #HMI_CMD_00013_LAMP_TEST: // Set
@@ -282,7 +283,7 @@ BEGIN
 	  *)
 	  
 	  IF #extErrorAckn AND NOT #private.errorAcknFp THEN
-	    #private.errorAckn := 1;
+	    #private.errorAckn := NOT #private.errorAckn;
 	  END_IF;
 	  #private.errorAcknFp := #extErrorAckn;
 	  
@@ -307,7 +308,7 @@ BEGIN
 	  *)
 	  
 	  IF #extEmrgAckn AND NOT #private.emrgAcknFp THEN
-	    #private.emrgAckn := 1;
+	    #private.emrgAckn := NOT #private.emrgAckn;
 	  END_IF;
 	  #private.emrgAcknFp := #extEmrgAckn;
 	  
