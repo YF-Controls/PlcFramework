@@ -1,0 +1,37 @@
+﻿TYPE "queueInstanceAttributes"
+TITLE = Type:Queue instance attributes
+VERSION : 0.1
+//(*--
+//# Falimy
+//* 'ADT/Queue'
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v3.0 | 2025-12-26 | cyanezf | Refactor, not complatible with prev. versions |
+//| v2.0 | 2023-01-18 | cyanezf | Name changed |
+//| v1.0 | 2022-01-01 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Queue instance attributes
+//
+//#
+//--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+//
+   STRUCT
+      front : DInt := 0;   // Front pointer of queue
+      length : DInt := 0;   // Queue size (current value)
+      total : DInt := 0;   // Queue maximum size (constant value)
+      isEmpty : Bool := 1;   // 1=Queue is empty
+      isFull : Bool := 0;   // 1=Queue is full
+      isInitialized : Bool := 0;   // 1=Queue is initialized and ready to work
+      mutex : Bool := 0;   // Used to block or enable access to queue (User defines the rules)
+   END_STRUCT;
+
+END_TYPE
+

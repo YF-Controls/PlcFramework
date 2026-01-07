@@ -1,0 +1,38 @@
+﻿TYPE "priorityQueueInstanceAttributes"
+TITLE = Type:Queue instance attributes
+VERSION : 1.0
+//(*--
+//# Falimy
+//* 'ADT/Queue'
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2025-12-26 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Priority Queue instance attributes
+//
+//#
+//--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+   STRUCT
+      length : DInt := 0;   // Queue size (current value)
+      total : DInt := 0;   // Queue maximum size (constant value)
+      isEmpty : Bool := 1;   // 1=Queue is empty
+      isFull : Bool := 0;   // 1=Queue is full
+      isInitialized : Bool := 0;   // 1=Queue is initialized and ready to work
+      priorityMode : Bool := 0;   // 0=High priority is hight number; 1=High priority is lower number
+      mutex : Bool := 0;   // Used to block or enable access to queue (User defines the rules)
+      protected : Struct   // Protected data
+         freeSlots : DInt := 0;   // 0..total-1=Free slots
+         nextSlotIndex : DInt := 0;   // 0..total = Next slot index
+      END_STRUCT;
+   END_STRUCT;
+
+END_TYPE
+

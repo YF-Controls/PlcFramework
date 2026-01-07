@@ -1,0 +1,34 @@
+﻿TYPE "stackInstanceAttributes"
+TITLE = Type: Stack Instance Attributes
+VERSION : 0.1
+//(*--
+//# Falimy
+//* 'ADT/Stack'
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.1 | 2025-12-01 | cyanezf | Change max with total |
+//| v1.0 | 2022-01-01 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//Stack instance attributes
+//
+//#
+//--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+   STRUCT
+      length : DInt := 0;   // Stack size (current value)
+      total : DInt := 0;   // Stack maximum size (constant value)
+      isEmpty : Bool := 1;   // 1=Stack is empty
+      isFull : Bool := 0;   // 1=Stack is full
+      isInitialized : Bool := 0;   // 1=Stack is initialized
+      mutex : Bool := 0;   // Used to block or enable access to queue (User defines the rules)
+   END_STRUCT;
+
+END_TYPE
+
