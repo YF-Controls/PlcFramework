@@ -91,7 +91,7 @@ BEGIN
 	     // 1.1. Initialize class attributes
 	     #instance.front := 0;
 	     #instance.length := 0;
-	     #instance.MAX := 0;
+	     #instance.total := 0;
 	     #instance.isEmpty := 1;
 	     #instance.isFull := 0;
 	     
@@ -127,7 +127,7 @@ BEGIN
 	     
 	     // 1.7. Set initialized
 	     #instance.isInitialized := TRUE;
-	     #instance.MAX := #length;
+	     #instance.total := #length;
 	     
 	     // 1.8. Return done if command was called
 	     IF #command = #CMD_01_INIT THEN
@@ -151,7 +151,7 @@ BEGIN
 	       END_IF;
 	       
 	       // 2. Calculate rear index
-	       #rear := (#instance.front + #instance.length) MOD #instance.MAX;
+	       #rear := (#instance.front + #instance.length) MOD #instance.total;
 	       
 	       // 3. Move from buffer to data
 	       #retVal := MOVE_BLK_VARIANT(SRC := #buffer,
@@ -168,12 +168,12 @@ BEGIN
 	       END_IF;
 	       
 	       // 5. Update class attributes
-	       IF #instance.length < #instance.MAX THEN
+	       IF #instance.length < #instance.total THEN
 	         #instance.length += 1;
 	       END_IF;
 	       
 	       #instance.isEmpty := #instance.length <= 0;
-	       #instance.isFull := #instance.length >= #instance.MAX;
+	       #instance.isFull := #instance.length >= #instance.total;
 	       
 	       // 6. Return true
 	       #_queue := #STATUS_0000_DONE;
@@ -207,14 +207,14 @@ BEGIN
 	       END_IF;
 	       
 	       // 4. Update class attributes
-	       #instance.front := (#instance.front + 1) MOD #instance.MAX;
+	       #instance.front := (#instance.front + 1) MOD #instance.total;
 	       
 	       IF #instance.length > 0 THEN
 	         #instance.length -= 1;
 	       END_IF;
 	       
 	       #instance.isEmpty := #instance.length <= 0;
-	       #instance.isFull := #instance.length >= #instance.MAX;
+	       #instance.isFull := #instance.length >= #instance.total;
 	       
 	       // 5. Return true
 	       #_queue := #STATUS_0000_DONE;
