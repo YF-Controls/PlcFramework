@@ -26,5 +26,5 @@ Use of `_queue`.
 
 ## See also
 
-* [menu](/PLC/90_Library/ADT/queue/readme.md)
-* [queueInstanceAttributes](/PLC/90_Library/ADT/queue/readme-queueInstanceAttributes-v3.0.md)
+* [menu](/PLC/Core/ADT/queue/readme.md)
+* [queueInstanceAttributes](/PLC/Core/ADT/queue/readme-queueInstanceAttributes-v3.0.md)

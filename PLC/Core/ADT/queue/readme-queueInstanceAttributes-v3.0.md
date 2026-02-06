@@ -16,5 +16,5 @@
 
 ## See also
 
-* [menu](/PLC/90_Library/ADT/queue/readme.md)
-* [_queue](/PLC/90_Library/ADT/queue/readme-_queue-v3.0.md)
+* [menu](/PLC/Core/ADT/queue/readme.md)
+* [_queue](/PLC/Core/ADT/queue/readme-_queue-v3.0.md)
