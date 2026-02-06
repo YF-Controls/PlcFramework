@@ -13,7 +13,7 @@ You can use `_queue` `function` to `enqueue`, `dequeue` or read the first elemen
 ## Parameters
 
 | Parameter | Declaration | Type | Description |
-| :-------- | :---------- | :--- | :---------- |
+| :-------- | :---------: | :--: | :---------- |
 | method | Input | `int` | Method to be executed:<br>1 = `METHOD_01_INIT` - Initialize<br>10 = `METHOD_10_ENQUEUE` - Add dato to last position<br>11 = `METHOD_11_DEQUEUE` - Remove data from first position<br>12 = `METHOD_12_PEEK` - Peek data from first position |
 | instance | InOut | `queueInstanceAttributes` | Queue instance |
 | data | InOut | `Variant` | Data array of type `<E>` |

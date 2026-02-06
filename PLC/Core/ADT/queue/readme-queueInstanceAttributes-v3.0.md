@@ -5,7 +5,7 @@
 ## Parameters
 
 | Parameter | Type | Init. value | Description |
-| :-------- | :--- | :---------- | :---------- |
+| :-------- | :--: | :---------: | :---------- |
 | front | `dint` | 0 | Front pointer of queue |
 | length | `dInt` | 0 | Queue size (current value) |
 | total | `dInt` | 0 | Queue maximum size (constant value) |
