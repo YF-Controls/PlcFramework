@@ -6,7 +6,7 @@ FAMILY : 'ADT/Queue'
 NAME : _queue
 VERSION : 3.0
    VAR_INPUT 
-      command : Int;   // 1=Init; 10=Enqueue(Add); 11=Dequeue(Remove); 12=Peek
+      method : Int;   // 1=Init; 10=Enqueue(Add); 11=Dequeue(Remove); 12=Peek
    END_VAR
 
    VAR_IN_OUT 
@@ -25,10 +25,10 @@ VERSION : 3.0
    END_VAR
 
    VAR CONSTANT 
-      CMD_01_INIT : Int := 1;   // Command 01: Initialize
-      CMD_10_ENQUEUE : Int := 10;   // Command 10: Add dato to last position
-      CMD_11_DEQUEUE : Int := 11;   // Command 11: Remove data from first position
-      CMD_12_PEEK : Int := 12;   // Command 12: Peek data from first position
+      METHOD_01_INIT : Int := 1;   // Method 01: Initialize
+      METHOD_10_ENQUEUE : Int := 10;   // Method 10: Add dato to last position
+      METHOD_11_DEQUEUE : Int := 11;   // Method 11: Remove data from first position
+      METHOD_12_PEEK : Int := 12;   // Method 12: Peek data from first position
       STATUS_0000_DONE : Int := 16#0000;   // Status: Done
       STATUS_8002_DATA_IS_NOT_ARRAY : Int := 16#8002;   // Status: Error - Data array is not array
       STATUS_8003_DATA_IS_NOT_VALID_ARRAY : Int := 16#8003;   // Status: Error - Data array is not valid array
@@ -37,7 +37,7 @@ VERSION : 3.0
       STATUS_8011_IS_FULL : Int := 16#8011;   // Status: Error - ADT is full
       STATUS_8020_ERROR_MOVE_BUFFER_TO_DATA : Int := 16#8020;   // Status: Error - Movement from buffer to data
       STATUS_8021_ERROR_MOVE_DATA_TO_BUFFER : Int := 16#8021;   // Status: Error - Movement from data to buffer
-      STATUS_8FFF_UNKNOWN_COMMAND : Int := 16#8FFF;   // Status: Error - Unknown command
+      STATUS_8FFF_UNKNOWN_METHOD : Int := 16#8FFF;   // Status: Error - Unknown method
    END_VAR
 
 
@@ -57,9 +57,9 @@ BEGIN
 	# Description
 	This function is used to queue/dequeue data
 	
-	## Commands
+	## Methods
 	In any call if queue is not initialized, the function tries to do it.
-	| Command | Description |
+	| Method | Description |
 	|:-------:|:------------|
 	| 1 | Initialize queue attributes, that means, function clears queue. |
 	| 10 | Add dato to last position |
@@ -78,15 +78,15 @@ BEGIN
 	| FALSE | 0x8011 | Error - ADT is full |
 	| FALSE | 0x8020 | Error - Movement from buffer to data |
 	| FALSE | 0x8021 | Error - Movement from data to buffer |
-	| FALSE | 0x8FFF | Error - Unknown command |
+	| FALSE | 0x8FFF | Error - Unknown method |
 	
 	#
 	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 	--*)
 	 
-	 REGION Command 01: Initialize
+	 REGION Method 01: Initialize
 	   // 1. Initialize
-	   IF NOT #instance.isInitialized OR #command = #CMD_01_INIT THEN
+	   IF NOT #instance.isInitialized OR #method = #METHOD_01_INIT THEN
 	     
 	     // 1.1. Initialize class attributes
 	     #instance.front := 0;
@@ -129,8 +129,8 @@ BEGIN
 	     #instance.isInitialized := TRUE;
 	     #instance.total := #length;
 	     
-	     // 1.8. Return done if command was called
-	     IF #command = #CMD_01_INIT THEN
+	     // 1.8. Return done if method was called
+	     IF #method = #METHOD_01_INIT THEN
 	       #_queue := #STATUS_0000_DONE;
 	       ENO := TRUE;
 	       RETURN;
@@ -138,10 +138,10 @@ BEGIN
 	   END_IF;
 	 END_REGION
 	 
-	 CASE #command OF
-	   #CMD_10_ENQUEUE:
+	 CASE #method OF
+	   #METHOD_10_ENQUEUE:
 	     // ##################################################
-	     REGION Command 10: Add to queue
+	     REGION Method 10: Add to queue
 	       
 	       // 1. Return is queue is full
 	       IF #instance.isFull THEN
@@ -181,9 +181,9 @@ BEGIN
 	       RETURN;
 	     END_REGION ;
 	     
-	   #CMD_11_DEQUEUE:
+	   #METHOD_11_DEQUEUE:
 	     // ##################################################
-	     REGION Command 11: Remove from queue
+	     REGION Method 11: Remove from queue
 	       
 	       // 1. Return is queue is empty
 	       IF #instance.isEmpty THEN
@@ -222,9 +222,9 @@ BEGIN
 	       RETURN;
 	     END_REGION ;
 	     
-	   #CMD_12_PEEK:
+	   #METHOD_12_PEEK:
 	     // ##################################################
-	     REGION Command 12: Peek first position
+	     REGION Method 12: Peek first position
 	       
 	       // 1. Return is queue is empty
 	       IF #instance.isEmpty THEN
@@ -256,7 +256,7 @@ BEGIN
 	 END_CASE;
 	 
 	 // Return
-	 #_queue := #STATUS_8FFF_UNKNOWN_COMMAND;
+	 #_queue := #STATUS_8FFF_UNKNOWN_METHOD;
 	 ENO := FALSE;
 	 
 END_FUNCTION
