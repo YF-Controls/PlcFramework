@@ -86,7 +86,7 @@ VERSION : 5.4
       OC_5_SEMIAUTO_STEP : USInt := 5;   // Operating cycle: 5 - Semiautomatic step enabled
       OC_6_AUTO_CYCLE : USInt := 6;   // Operating cycle: 6 - Automatic cycle enabled
       HMI_CMD_00000_NIL : UInt := 0;   // HMI Command: 0000 - No action; Mode=Clear; Area=Any
-      HMI_CMD_00001_OC_CONTROL_ON : UInt := 1;   // HMI Command: 0001 - On/Off; Mode=E/D-Pulse; Area=Any
+      HMI_CMD_00001_ON_OFF : UInt := 1;   // HMI Command: 0001 - On/Off; Mode=E/D-Pulse; Area=Any
       HMI_CMD_00002_OM_STOP : UInt := 2;   // HMI Command: 0002 - Stop mode; Mode=S-Pulse; Area=Operating mode
       HMI_CMD_00003_OM_MAINT : UInt := 3;   // HMI Command: 0003 - Maintenance mode; Mode=S-Pulse; Area=Operating mode
       HMI_CMD_00004_OM_MANUAL : UInt := 4;   // HMI Command: 0004 - Manual mode; Mode=S-Pulse; Area=Operating mode
@@ -192,7 +192,7 @@ BEGIN
 	  IF #hmiCommand <> #HMI_CMD_00000_NIL THEN
 	    CASE #hmiCommand OF
 	        
-	      #HMI_CMD_00001_OC_CONTROL_ON: // Toggle
+	      #HMI_CMD_00001_ON_OFF: // Toggle
 	        #private.controlOn := NOT #private.controlOn;
 	        #hmiCommand := #HMI_CMD_00000_NIL;
 	        

@@ -2,6 +2,8 @@
 
 ## Description
 
+This `data type` is used to store instance data for a `_queue`.
+
 ## Parameters
 
 | Parameter | Type | Init. value | Description |
@@ -16,5 +18,5 @@
 
 ## See also
 
-* [menu](/PLC/Core/ADT/queue/readme.md)
-* [_queue](/PLC/Core/ADT/queue/readme-_queue-v3.0.md)
+* [menu](/S7-1200-1500/Core/ADT/queue/readme.md)
+* [_queue](/S7-1200-1500/Core/ADT/queue/readme-_queue-v3.0.md)
