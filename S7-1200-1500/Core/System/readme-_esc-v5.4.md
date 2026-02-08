@@ -1,42 +1,54 @@
 # ESC: Emergency Stop Circuit - `v5.4`
 
+## Table of Contents
+
+- [Description](#description)
+- [Dependencies](#dependencies)
+- [Parameters](#parameters)
+  - [Function](#function)
+  - [Settings Structure](#settings-structure)
+  - [HMI Commands](#hmi-commands)
+- [Example](#example)
+
 ## Description
 
-You can use `_esc` `function` to control the _operating modes_ of an __Emergency Stop Circuit__ in your system.
+You can use `_esc` `function` to control the `Operating Modes` of an `Emergency Stop Circuit` in your system.
 
 ## Dependencies
 
 | Type | Name | Version |
 | :--- | :--- | :------ |
-| `data type` | `escOutput` | v2.2 |
+| `data type` | `escOutput` | [v2.2](/S7-1200-1500/Core/System/readme-escOutput-v2.2.md) |
 | `function` | `TON_TIME` | Siemens FB |
 | `function` | `TP_TIME` | Siemens FB |
 
 ## Parameters
 
+### Function
+
 | Parameter | Declaration | Type | Init. value | Description |
 | :-------- | :---------: | :--: | :---------: | :---------- |
-| F_emrgCircuitOk | Input | `bool` | 1 | `IR`: 1= Emergency Circuit Ok |
-| F_emrgStopOk | Input | `bool` | 1 | `IR`: 1=Emergency Stop Ok |
-| extControlOn | Input | `bool` | 1 |`IR`: External control:<br>0= Control off<br>1= Control on |
-| extOperatingMode | Input | `usint` | 4 | `IR`: External operating mode:<br>2= `OM_2_STOP` - Stop mode<br>3= `OM_3_MAINT` - Maintenance mode<br>4= `OM_4_MANUAL` - Manual mode<br>5= `OM_5_SEMIAUTO` - Semiautomatic mode<br>6= `OM_6_AUTO` - Automatic mode |
-| extOperatingCycle | Input | `usint` | 0 | `IR`: External operating cycle:<br>3= `OC_3_MAINT_MOV` - Enable Maintenance movement<br>4= `OC_4_MANUAL_MOV` - Enable Manual movement<br>5= `OC_5_SEMIAUTO_STEP` - Enable Semiautomatic step<br>6= `OC_6_AUTO_CYCLE` - Enable Automatic cycle |
-| extErrorAckn | Input | `bool` | 0 | `IR`: 1= External error acknowledgement |
-| extEmrgAckn | Input | `bool` | 0 | `IR`: 1= External emergency acknowledgement |
-| extLampTest | Input | `bool` | 0 | `IR`: 1= External lamp test |
-| hmiOk | Input | `bool` | 0 | `IR`: 1= HMI panels are ok (this signal is used to enable/disable `hmiCommand` ) |
-| settings | Input | `structure` | - | `IR`: Function configuration. [See the table below](#settings-structure) |
-| o | Output | `escOutput` | - |  `OR`: ESC output |
+| F_emrgCircuitOk | Input | `Bool` | 1 | `IR`: 1= Emergency Circuit Ok |
+| F_emrgStopOk | Input | `Bool` | 1 | `IR`: 1=Emergency Stop Ok |
+| extControlOn | Input | `Bool` | 1 |`IR`: External control:<br>0= Control off<br>1= Control on |
+| extOperatingMode | Input | `USint` | 4 | `IR`: External operating mode:<br>2= `OM_2_STOP` - Stop mode<br>3= `OM_3_MAINT` - Maintenance mode<br>4= `OM_4_MANUAL` - Manual mode<br>5= `OM_5_SEMIAUTO` - Semiautomatic mode<br>6= `OM_6_AUTO` - Automatic mode |
+| extOperatingCycle | Input | `USint` | 0 | `IR`: External operating cycle:<br>3= `OC_3_MAINT_MOV` - Enable Maintenance movement<br>4= `OC_4_MANUAL_MOV` - Enable Manual movement<br>5= `OC_5_SEMIAUTO_STEP` - Enable Semiautomatic step<br>6= `OC_6_AUTO_CYCLE` - Enable Automatic cycle |
+| extErrorAckn | Input | `Bool` | 0 | `IR`: 1= External error acknowledgement |
+| extEmrgAckn | Input | `Bool` | 0 | `IR`: 1= External emergency acknowledgement |
+| extLampTest | Input | `Bool` | 0 | `IR`: 1= External lamp test |
+| hmiOk | Input | `Bool` | 0 | `IR`: 1= HMI panels are ok (this signal is used to enable/disable `hmiCommand` ) |
+| settings | Input | `structure` | - | `IR`: Function configuration. [See here.](#settings-structure) |
+| o | Output | `escOutput` | - |  `OR`: ESC output. [See here.](/S7-1200-1500/Core/System/readme-escOutput-v2.2.md) |
 | selectedMode | Output | `USint` | 0 | `OR`: Show selected mode (Not the current mode |
-| selectedCycle | Output | `USInt` | 0 | `OR`: Show selected cycle (Not the current cycle) |
+| selectedCycle | Output | `USint` | 0 | `OR`: Show selected cycle (Not the current cycle) |
 | hmiDisabled | Output | `Bool` | 0 | `OR`: 1=Hmi disabled, then disable `hmiCommand` variable and clear `o.oc.maintMov/manualMov` |
-| hmiCommand | Static | `UInt` | 0 | `SW`: HMI Command. [See HMI Table](/) |
+| hmiCommand | Static | `UInt` | 0 | `SW`: HMI Command. [See here.](#hmi-commands) |
 
 <br>
 
 🚨 What about `IR`, `SW`, etc.? [See Remote access to variables.](/S7-1200-1500/readme-remote-access-to-variables.md) 🚨
 
-### settings structure
+### Settings Structure
 
 | settings | Type | Init. value | Description |
 | :------- | :--: | :---------: | :---------- |
@@ -82,7 +94,8 @@ The following list shows the useful `hmi commands` for this `function`.
 
 🚧 Working 🚧
 
-* [Remote access to variables.](/S7-1200-1500/readme-remote-access-to-variables.md)
-* [HMI Commands.](/S7-1200-1500/Core/HMI/__HMI_COMMAND__-v1.0.xlsx)
-* [Operating Modes.](/)
-* [Operating Cycles.](/)
+- [Remote access to variables.](/S7-1200-1500/readme-remote-access-to-variables.md)
+- [HMI Commands.](/S7-1200-1500/Core/HMI/__HMI_COMMAND__-v1.0.xlsx)
+- [Operating Modes.](/)
+- [Operating Cycles.](/)
+- [escOutput](/S7-1200-1500/Core/System/readme-escOutput-v2.2.md)
