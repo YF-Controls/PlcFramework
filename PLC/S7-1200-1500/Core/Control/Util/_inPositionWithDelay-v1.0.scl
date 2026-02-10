@@ -1,0 +1,56 @@
+﻿FUNCTION_BLOCK "_inPositionWithDelay"
+TITLE = Function:In position with delay
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'Control/Util'
+NAME : _inPositionWithDelay
+VERSION : 1.0
+   VAR_INPUT 
+      homed { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // IX: 1=Homed and sync ok (if there are sync axis)
+      actualPosition { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Actual position
+      POSITION { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Reference position
+      TOLERANCE { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Max tolerance
+      DELAY { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Time := T#100ms;   // IX: Delay time to set output
+   END_VAR
+
+   VAR_OUTPUT 
+      Q { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // OX: 1=In position
+   END_VAR
+
+   VAR 
+      private { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Struct   // SX: Private static variables
+         delayTon {InstructionName := 'TON_TIME'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : TON_TIME;
+      END_STRUCT;
+   END_VAR
+
+
+BEGIN
+	
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2026-02-10 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| TON_TIME |
+	 
+	# Description
+	This function checks if the `actualPosition` is in `POSITION` with `TOLERANCE` and is `homed` with delay.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	#private.delayTon(IN:=#homed AND ABS(#POSITION - #actualPosition) < #TOLERANCE,
+	                  PT:=#DELAY);
+	
+	// Save RLO
+	ENO := #Q := #private.delayTon.Q;
+	
+	
+END_FUNCTION_BLOCK
+
