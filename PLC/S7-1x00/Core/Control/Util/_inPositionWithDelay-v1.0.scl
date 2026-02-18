@@ -8,8 +8,8 @@ VERSION : 1.0
    VAR_INPUT 
       homed { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;   // IX: 1=Homed and sync ok (if there are sync axis)
       actualPosition { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Actual position
-      POSITION { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Reference position
-      TOLERANCE { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Max tolerance
+      position { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Reference position
+      tolerance { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Real;   // IX: Max tolerance
       DELAY { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Time := T#100ms;   // IX: Delay time to set output
    END_VAR
 
@@ -39,13 +39,13 @@ BEGIN
 	| TON_TIME |
 	 
 	# Description
-	This function checks if the `actualPosition` is in `POSITION` with `TOLERANCE` and is `homed` with delay.
+	This function checks if the `actualPosition` is in `position` with `tolerance` and is `homed` with delay.
 	
 	#
 	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 	--*)
 	
-	#private.delayTon(IN:=#homed AND ABS(#POSITION - #actualPosition) < #TOLERANCE,
+	#private.delayTon(IN:=#homed AND ABS(#position - #actualPosition) < #tolerance,
 	                  PT:=#DELAY);
 	
 	// Save RLO

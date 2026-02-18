@@ -7,24 +7,24 @@ NAME : _background
 VERSION : 3.1
 
    VAR_INPUT 
-      OB_initial_call { ExternalWritable := 'False'} : Bool;   // IR: Map in DI thenInitial call from OB1
-      HW_firstScan { ExternalWritable := 'False'} : Bool;   // IR: Map in DI the first scan from Memory bit
-      HW_diagStatusUpdate { ExternalWritable := 'False'} : Bool;   // IR: Map in DI the diagnostic status update from Memory bit
-      HW_clock { ExternalWritable := 'False'} : Byte;   // IR: Map in DI the clock byte from Memory byte
-      HW_TRUE { ExternalWritable := 'False'} : Bool := 1;   // IR: Map in DI the alwyas TRUE from Memory bit
-      HW_FALSE { ExternalWritable := 'False'} : Bool := 0;   // IR: Map in DI the alwyas FALSE from Memory bit
-      clockSource { ExternalWritable := 'False'} : Bool := 0;   // IR: 0=From Hw if confured, 1=This function generates
+      OB_initial_call { ExternalWritable := 'False'} : Bool;   // IR: Map the initial call from OB1
+      HW_firstScan { ExternalWritable := 'False'} : Bool;   // IR: Map the first scan from memory bit.
+      HW_diagStatusUpdate { ExternalWritable := 'False'} : Bool;   // IR: Map the diagnostic status update from Memory bit.
+      HW_clock { ExternalWritable := 'False'} : Byte;   // IR: Map the clock byte from Memory byte.
+      HW_TRUE { ExternalWritable := 'False'} : Bool := 1;   // IR: Map the always TRUE from Memory bit.
+      HW_FALSE { ExternalWritable := 'False'} : Bool := 0;   // IR: Map the always FALSE from Memory bit.
+      clockSource { ExternalWritable := 'False'} : Bool := 0;   // IR: 0=From Hw if confured, 1=This function generates it.
       TMP_EMRG_BYPASS_TIMEOUT { ExternalWritable := 'False'} : Time := T#0s;   // IR: 0=Forever; >0=Timeout
    END_VAR
 
    VAR_OUTPUT 
-      PROV_TRUE { ExternalWritable := 'False'} : Bool := 1;   // OR: Provisional always true
-      PROV_FALSE { ExternalWritable := 'False'} : Bool := 0;   // OR: Provisional always false
-      clock { ExternalWritable := 'False'} : Byte;   // OR: Bclock output if is done by Hw or Sw
-      pulse { ExternalWritable := 'False'} : Byte;   // OR: Get positive edges from clock
-      cycleTime { ExternalWritable := 'False'} : Time;   // OR: Cycle time in milliseconds
-      now {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : DTL;   // OR: Current date and time
-      weekday { ExternalWritable := 'False'} : Struct   // OR: Current weekday in bits
+      PROV_TRUE { ExternalWritable := 'False'} : Bool := 1;   // OR: Provisional always true.
+      PROV_FALSE { ExternalWritable := 'False'} : Bool := 0;   // OR: Provisional always false.
+      clock { ExternalWritable := 'False'} : Byte;   // OR: Block output if is done by Hw or Sw.
+      pulse { ExternalWritable := 'False'} : Byte;   // OR: Get positive edges from clock.
+      cycleTime { ExternalWritable := 'False'} : Time;   // OR: Cycle time in milliseconds.
+      now {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : DTL;   // OR: Current date and time.
+      weekday { ExternalWritable := 'False'} : Struct   // OR: Current weekday in bits.
          d0_nil { ExternalWritable := 'False'} : Bool;
          d1_sunday { ExternalWritable := 'False'} : Bool;
          d2_monday { ExternalWritable := 'False'} : Bool;

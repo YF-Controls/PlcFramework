@@ -1,24 +1,25 @@
-﻿FUNCTION "_inPosition" : Bool
-TITLE = Function:In position
+﻿FUNCTION "_inRange" : Bool
+TITLE = Function:In range
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
 FAMILY : 'Control/Util'
-NAME : _inPosition
-VERSION : 2.0
+NAME: _inRange 
+VERSION : 1.0
    VAR_INPUT 
       homed : Bool;   // 1=Homed and sync ok (if there are sync axis)
       actualPosition : Real;   // Actual position
-      position : Real;   // Reference position
-      tolerance : Real;   // Max tolerance
+      minPosition : Real;   // Min reference position
+      maxPosition : Real;   // Max reference position
+      tolerance : Real;   // Tolerance (Add this value to position)
    END_VAR
 
+
 BEGIN
-	(*--
+   (*--
 	
 	# Log
 	| version | date | author | description |
 	|:-------:|:----:|:------:|:------------|
-	| v2.0 | 2025-07-15 | cyanezf | return as bool added |
 	| v1.0 | 2025-01-10 | cyanezf | First version |
 	
 	# Dependencies
@@ -26,14 +27,14 @@ BEGIN
 	|:-----------|
 	 
 	# Description
-	This function checks if the `actualPosition` is in `position` with `tolerance` and is `homed`.
+	This function checks if the `actualPosition` is in `range` with `tolerance` and is `homed`.
 	
 	#
 	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 	--*)
-	
-	// Save RLO
-	ENO := #_inPosition:= #homed AND ABS(#position - #actualPosition) < #tolerance;
+   
+	// Return
+	ENO := #_inRange := #homed AND #actualPosition >= #minPosition - #tolerance AND #actualPosition <= #maxPosition + #tolerance;
 	
 END_FUNCTION
 
