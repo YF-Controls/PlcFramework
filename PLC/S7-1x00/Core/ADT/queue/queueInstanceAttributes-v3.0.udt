@@ -1,6 +1,6 @@
 ﻿TYPE "queueInstanceAttributes"
 TITLE = Type:Queue instance attributes
-VERSION : 0.1
+VERSION : 3.0
 //(*--
 //# Falimy
 //* 'ADT/Queue'
@@ -24,12 +24,12 @@ VERSION : 0.1
 //--*)
 //
    STRUCT
-      front : DInt := 0;   // Front pointer of queue
-      length : DInt := 0;   // Queue size (current value)
-      total : DInt := 0;   // Queue maximum size (constant value)
-      isEmpty : Bool := 1;   // 1=Queue is empty
-      isFull : Bool := 0;   // 1=Queue is full
-      isInitialized : Bool := 0;   // 1=Queue is initialized and ready to work
+      front : DInt := 0;   // First position of the queue
+      length : DInt := 0;   // Current length of the queue
+      total : DInt := 0;   // Total/maximum length of the queue
+      isEmpty : Bool := 1;   // 1= The queue is empty
+      isFull : Bool := 0;   // 1= The queue is full
+      isInitialized : Bool := 0;   // 1= The queue is initialized and ready to work
       mutex : Bool := 0;   // Used to block or enable access to queue (User defines the rules)
    END_STRUCT;
 
