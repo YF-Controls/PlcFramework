@@ -6,15 +6,15 @@ FAMILY : 'ADT/PriorityQueue'
 NAME : _priorityQueue
 VERSION : 1.0
    VAR_INPUT 
-      method : Int;   // 1=Init; 10=Enqueue(Add); 11=Dequeue(Remove); 12=Peek
+      method : Int;   // Method to be executed. 1=Init; 10=Enqueue(Add); 11=Dequeue(Remove); 12=Peek
    END_VAR
 
    VAR_IN_OUT 
       instance : "priorityQueueInstanceAttributes";   // Queue instance
-      metadata : Array[*] of "priorityQueueMetadata";   // Metadata array of type priorityQueueMetadata
-      data : Variant;   // Data array of type <E>
-      buffer_data : Variant;   // Buffer data of type <E>
-      buffer_priority : DInt;   // Any value in range: biggest number has high priority
+      metadata : Array[*] of "priorityQueueMetadata";   // Array of metadata of type priorityQueueMetadata
+      data : Variant;   // Array of data of type <E>
+      buffer_data : Variant;   // Data buffer of type <E>
+      buffer_priority : DInt;   // Any value within its range: the largest number has the highest priority
    END_VAR
 
    VAR_TEMP 
@@ -37,69 +37,81 @@ VERSION : 1.0
 
    VAR CONSTANT 
       NIL : DInt := -1;
-      METHOD_01_INIT : Int := 1;   // Method 01: Initialize
-      METHOD_10_ENQUEUE : Int := 10;   // Method 10: Add dato to last position
-      METHOD_11_DEQUEUE : Int := 11;   // Method 11: Remove data from first position
-      METHOD_12_PEEK : Int := 12;   // Method 12: Peek data from first position
-      STATUS_0000_DONE : Int := 16#0000;   // Status: Done
-      STATUS_8000_NODE_LOWER_LIMIT_NOT_ZERO : Int := 16#8000;   // Status: Error - Lower limit of node array is not zero
-      STATUS_8002_DATA_IS_NOT_ARRAY : Int := 16#8002;   // Status: Error - Data array is not array
-      STATUS_8003_DATA_IS_NOT_VALID_ARRAY : Int := 16#8003;   // Status: Error - Data array is not valid array
-      STATUS_8004_DATA_AND_NODE_DIFF_LEN : Int := 16#8004;   // Status: Error - Data array and Node array have different length
-      STATUS_8005_DATA_ARRAY_LESS_THAN_TWO : Int := 16#8005;   // Status: Error - Data array is less than two elements
-      STATUS_8010_IS_EMPTY : Int := 16#8010;   // Status: Error - ADT is empty
-      STATUS_8011_IS_FULL : Int := 16#8011;   // Status: Error - ADT is full
-      STATUS_8020_ERROR_MOVE_BUFFER_TO_DATA : Int := 16#8020;   // Status: Error - Movement from buffer to data
-      STATUS_8021_ERROR_MOVE_DATA_TO_BUFFER : Int := 16#8021;   // Status: Error - Movement from data to buffer
-      STATUS_8033_FREE_SLOT_CORRUPTION : Int := 16#8033;   // Status: Error - Free slot corruption
-      STATUS_8FFF_UNKNOWN_METHOD : Int := 16#8FFF;   // Status: Error - Unknown method
+
+			METHOD_00_NIL : Int := 0; // Priority Queue: 0 - Nil
+      METHOD_01_INIT : Int := 1;   // Priority Queue: 1 - Initialized
+      METHOD_10_ENQUEUE : Int := 10;   // Priority Queue: 10 - Enqueue data at the end position
+      METHOD_11_DEQUEUE : Int := 11;   // Priority Queue: 11 - Dequeue data from the first position
+      METHOD_12_PEEK : Int := 12;   // Priority Queue: 12 - Peek data from the first position
+			
+      STATUS_0000_DONE : Int := 16#0000;   // Priority Queue: 0x0000 - Done
+      STATUS_8000_NODE_LOWER_LIMIT_NOT_ZERO : Int := 16#8000;   // Priority Queue: 0x8000 - Error - Node array lower limit is not zero
+      STATUS_8002_DATA_IS_NOT_ARRAY : Int := 16#8002;   // Priority Queue: 0x8002 - Error - Data array is not an array
+      STATUS_8003_DATA_IS_NOT_VALID_ARRAY : Int := 16#8003;   // Priority Queue: 0x8003 - Error - Data array is not a valid array
+      STATUS_8004_DATA_AND_NODE_DIFF_LEN : Int := 16#8004;   // Priority Queue: 0x8004 - Error - Data and node arrays have different lengths
+      STATUS_8005_DATA_ARRAY_LESS_THAN_TWO : Int := 16#8005;   // Priority Queue: 0x8005 - Error - Data array has less than two elements
+      STATUS_8010_IS_EMPTY : Int := 16#8010;   // Priority Queue: 0x8010 - Error - Queue is empty
+      STATUS_8011_IS_FULL : Int := 16#8011;   // Priority Queue: 0x8011 - Error - Queue is full
+      STATUS_8020_ERROR_MOVE_BUFFER_TO_DATA : Int := 16#8020;   // Priority Queue: 0x8020 - Error - Move buffer to data
+      STATUS_8021_ERROR_MOVE_DATA_TO_BUFFER : Int := 16#8021;   // Priority Queue: 0x8021 - Error - Move data to buffer
+      STATUS_8033_FREE_SLOT_CORRUPTION : Int := 16#8033;   // Priority Queue: 0x8033 - Error - Free slot corruption
+      STATUS_8FFF_UNKNOWN_METHOD : Int := 16#8FFF;   // Priority Queue: 0x8FFF - Error - Unknown method
+
    END_VAR
 
 
 BEGIN
-	(*--
-	# Log
-	| version | date | author | description |
-	|:-------:|:----:|:------:|:------------|
-	| v1.0 | 2025-12-26 | cyanezf | First version |
+(*--
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2025-12-26 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| priorityQueueInstanceAttributes v1.0 |
+| priorityQueueMetadata v1.0 |
+
+# Description
+This function is used to queue/dequeue data with priority.
+
+## Methods
+In any call if queue is not initialized, the function tries to do it.
+
+| Name | Type | Value | Description |
+| :--- | :--- | :---- | :---------- |
+| `PRIORITY_QUEUE_METHOD_00_NIL` | `Int` | 0 | Priority Queue: 0 - Nil |
+| `PRIORITY_QUEUE_METHOD_01_INIT` | `Int` | 1 | Priority Queue: 1 - Initialized |
+| `PRIORITY_QUEUE_METHOD_10_ENQUEUE` | `Int` | 10 | Priority Queue: 10 - Enqueue data at the end position |
+| `PRIORITY_QUEUE_METHOD_11_DEQUEUE` | `Int` | 11 | Priority Queue: 11 - Dequeue data from the first position |
+| `PRIORITY_QUEUE_METHOD_12_PEEK` | `Int` | 12 | Priority Queue: 12 - Peek data from the first position |
 	
-	# Dependencies
-	| Dependency |
-	|:-----------|
-	| priorityQueueInstanceAttributes v1.0 |
-	| priorityQueueMetadata v1.0 |
-	
-	# Description
-	This function is used to queue/dequeue data with priority.
-	
-	## Methods
-	In any call if queue is not initialized, the function tries to do it.
-	| Method | Description |
-	|:-------:|:------------|
-	| 1 | Initialize queue attributes, that means, function clears queue. |
-	| 10 | Add dato to last position |
-	| 11 | Remove data from first position |
-	| 12 | Peek data from first position |
-	| Unknown | Init. is tried and returns an error code. |
-	
-	## RLO and Return
-	| RLO | Return | Description |
-	|:---:|:------:|:------------|
-	| TRUE | 0 | Done |
-	| FALSE | 0x8000 | Error - Lower limit of node array is not zero |
-	| FALSE | 0x8002 | Error - Data array is not array |
-	| FALSE | 0x8003 | Error - Data array is not valid array |
-	| FALSE | 0x8005 | Error - Data array is less than two elements |
-	| FALSE | 0x8010 | Error - ADT is empty |
-	| FALSE | 0x8011 | Error - ADT is full |
-	| FALSE | 0x8020 | Error - Movement from buffer to data |
-	| FALSE | 0x8021 | Error - Movement from data to buffer |
-	| FALSE | 0x8033 | Error - Free slot corruption
-	| FALSE | 0x8FFF | Error - Unknown method |
-	
-	#
-	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
-	--*)
+## RLO and Return
+
+| Name | Type | Value | Description |
+| :--- | :--- | :---- | :---------- |
+| `PRIORITY_QUEUE_STATUS_0000_DONE` | `Int` | 0x0000 | Priority Queue: 0x0000 - Done |
+| `PRIORITY_QUEUE_STATUS_8000_NODE_LOWER_LIMIT_NOT_ZERO` | `Int` | 0x8000 | Priority Queue: 0x8000 - Error - Node array lower limit is not zero |
+| `PRIORITY_QUEUE_STATUS_8002_DATA_IS_NOT_ARRAY` | `Int` | 0x8002 | Priority Queue: 0x8002 - Error - Data array is not an array |
+| `PRIORITY_QUEUE_STATUS_8003_DATA_IS_NOT_VALID_ARRAY` | `Int` | 0x8003 | Priority Queue: 0x8003 - Error - Data array is not a valid array |
+| `PRIORITY_QUEUE_STATUS_8004_DATA_AND_NODE_DIFF_LEN` | `Int` | 0x8004 | Priority Queue: 0x8004 - Error - Data and node arrays have different lengths |
+| `PRIORITY_QUEUE_STATUS_8005_DATA_ARRAY_LESS_THAN_TWO` | `Int` | 0x8005 | Priority Queue: 0x8005 - Error - Data array has less than two elements |
+| `PRIORITY_QUEUE_STATUS_8010_IS_EMPTY` | `Int` | 0x8010 | Priority Queue: 0x8010 - Error - Queue is empty |
+| `PRIORITY_QUEUE_STATUS_8011_IS_FULL` | `Int` | 0x8011 | Priority Queue: 0x8011 - Error - Queue is full |
+| `PRIORITY_QUEUE_STATUS_8020_ERROR_MOVE_BUFFER_TO_DATA` | `Int` | 0x8020 | Priority Queue: 0x8020 - Error - Move buffer to data |
+| `PRIORITY_QUEUE_STATUS_8021_ERROR_MOVE_DATA_TO_BUFFER` | `Int` | 0x8021 | Priority Queue: 0x8021 - Error - Move data to buffer |
+| `PRIORITY_QUEUE_STATUS_8033_FREE_SLOT_CORRUPTION` | `Int` | 0x8033 | Priority Queue: 0x8033 - Error - Free slot corruption |
+| `PRIORITY_QUEUE_STATUS_8FFF_UNKNOWN_METHOD` | `Int` | 0x8FFF | Priority Queue: 0x8FFF - Error - Unknown method |
+
+| RLO | Status | Description |
+| :-- | :----- | :---------- |
+| `TRUE`| 0x0000 | Done |
+| `FALSE`| Other | Error - Check return value for details |
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
 	 
 	REGION Method 01: Initialize
 	  // 1. Initialize

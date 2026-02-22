@@ -21,13 +21,13 @@ VERSION : 1.0
 //--_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 //--*)
    STRUCT
-      length : DInt := 0;   // Queue size (current value)
-      total : DInt := 0;   // Queue maximum size (constant value)
-      isEmpty : Bool := 1;   // 1=Queue is empty
-      isFull : Bool := 0;   // 1=Queue is full
-      isInitialized : Bool := 0;   // 1=Queue is initialized and ready to work
-      priorityMode : Bool := 0;   // 0=High priority is hight number; 1=High priority is lower number
-      mutex : Bool := 0;   // Used to block or enable access to queue (User defines the rules)
+      length : DInt := 0;   // Current length of the queue
+      total : DInt := 0;   // Total/maximum length of the queue
+      isEmpty : Bool := 1;   // 1= The queue is empty
+      isFull : Bool := 0;   // 1= The queue is full
+      isInitialized : Bool := 0;   // 1= The queue is initialized and ready to work
+      priorityMode : Bool := 0;   // 0= The highest priority is the highest number; 1= The highest priority is the lowest number
+      mutex : Bool := 0;   // Used to lock or enable access to the queue (user defines the rules)
       protected : Struct   // Protected data
          freeSlots : DInt := 0;   // 0..total-1=Free slots
          nextSlotIndex : DInt := 0;   // 0..total = Next slot index

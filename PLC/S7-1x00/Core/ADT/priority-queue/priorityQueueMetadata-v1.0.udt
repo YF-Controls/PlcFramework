@@ -27,7 +27,7 @@ VERSION : 1.0
       data : Struct   // Node data
          priority : DInt := 0;   // Priority
       END_STRUCT;
-      freeSlot : Struct   // free slot data
+      freeSlot : Struct   // Free slot data
          dataIndex : DInt := 0;   // Data index
       END_STRUCT;
    END_STRUCT;
