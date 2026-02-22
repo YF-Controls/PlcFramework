@@ -26,7 +26,6 @@ VERSION : 1.1
       METHOD_11_POP : Int := 11;   // Method 11: Pop (Remove) data from top of stack
       METHOD_12_PEEK : Int := 12;   // Method 12: Peek (Read) data from top of stack
       STATUS_0000_DONE : Int := 16#0000;   // Status: Done
-      STATUS_8FFF_UNKNOWN_METHOD : Int := 16#8FFF;   // Status: Error - Unknown method
       STATUS_8002_DATA_IS_NOT_ARRAY : Int := 16#8002;   // Status: Error - Data array is not array
       STATUS_8003_DATA_IS_NOT_VALID_ARRAY : Int := 16#8003;   // Status: Error - Data array is not valid array
       STATUS_8005_DATA_ARRAY_LESS_THAN_TWO : Int := 16#8005;   // Status: Error - Data array is less than two elements
@@ -34,6 +33,7 @@ VERSION : 1.1
       STATUS_8011_IS_FULL : Int := 16#8011;   // Status: Error - ADT is full
       STATUS_8020_ERROR_MOVE_BUFFER_TO_DATA : Int := 16#8020;   // Status: Error - Movement from buffer to data
       STATUS_8021_ERROR_MOVE_DATA_TO_BUFFER : Int := 16#8021;   // Status: Error - Movement from data to buffer
+			STATUS_8FFF_UNKNOWN_METHOD : Int := 16#8FFF;   // Status: Error - Unknown method
    END_VAR
 
 
