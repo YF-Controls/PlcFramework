@@ -2,7 +2,7 @@
 TITLE = Function: Is correct datetime
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Datetime/Util'
+FAMILY : 'datetime/util'
 NAME : _checkDatetime
 VERSION : 1.0
    VAR_INPUT 

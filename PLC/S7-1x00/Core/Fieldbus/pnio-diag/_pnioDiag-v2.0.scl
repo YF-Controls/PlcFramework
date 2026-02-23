@@ -2,7 +2,7 @@
 TITLE = Function:Profinet IO Diagnostics
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Fieldbus/PnioDiag'
+FAMILY : 'fieldbus/pnio-diag'
 NAME : _pnioDiag
 VERSION : 2.0
 

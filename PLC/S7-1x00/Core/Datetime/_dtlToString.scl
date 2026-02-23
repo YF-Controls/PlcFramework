@@ -2,7 +2,7 @@
 TITLE = Function:Datetime to string
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Datetime
+FAMILY : datetime
 NAME : _dtlToString
 VERSION : 1.2
 

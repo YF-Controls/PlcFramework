@@ -2,7 +2,7 @@
 TITLE = Function:convert datetime to unix timestamp
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Datetime/Timestamp'
+FAMILY : 'datetime/timestamp'
 NAME : _datetimeToUnixTimestamp
 VERSION : 1.0
    VAR_INPUT 

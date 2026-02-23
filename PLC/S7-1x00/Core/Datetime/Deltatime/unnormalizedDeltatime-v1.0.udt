@@ -1,12 +1,12 @@
 ﻿TYPE "unnormalizedDeltatime"
 TITLE = Type:Unnormalized deltatime
 AUTHOR : cyanezf
-FAMILY: 'Datetime/timestamp'
+FAMILY: 'datetime/timestamp'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Datetime/deltatime
+//* datetime/deltatime
 //
 //# Log
 //| version | date | author | description |

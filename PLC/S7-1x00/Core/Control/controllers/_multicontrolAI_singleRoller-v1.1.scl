@@ -2,7 +2,7 @@
 TITLE = Function:Multicontrol AI for single motoroller
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Controller'
+FAMILY : 'control/controller'
 NAME : _multicontrolAI_singleRoller
 VERSION : 1.1
 

@@ -1,12 +1,12 @@
 ﻿TYPE "plcLogBuffer"
 TITLE = Type: PLC Log buffer
 AUTHOR : cyanezf
-FAMILY : 'Communication/Log'
+FAMILY : 'communication/log'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Communication/Log
+//* communication/log
 //
 //# Log
 //| version | date | author | description |

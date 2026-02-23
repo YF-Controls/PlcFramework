@@ -2,7 +2,7 @@
 TITLE = Function:Jobmailbox - Screen selection function
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : HMI
+FAMILY : hmi
 NAME : _jobmailbox_screenSelection
 VERSION : 1.0
 

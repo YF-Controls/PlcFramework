@@ -3,7 +3,7 @@ TITLE = Type:Priority Queue metadata
 VERSION : 1.0
 //(*--
 //# Falimy
-//* 'ADT/Queue'
+//* 'adt/priority-queue'
 //
 //# Log
 //| version | date | author | description |

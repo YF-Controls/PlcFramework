@@ -1,12 +1,12 @@
 ﻿TYPE "tcpCommunicationControl"
 TITLE = Type:TCP Communication control
 AUTHOR : cyanezf
-FAMILY : 'Communication/TCP'
+FAMILY : 'communication/tcp'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Communication/TCP
+//* 'communication/tcp'
 //
 //# Log
 //| version | date | author | description |

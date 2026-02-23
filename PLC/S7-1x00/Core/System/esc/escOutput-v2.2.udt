@@ -1,12 +1,12 @@
 ﻿TYPE "escOutput"
 TITLE = Type:ESC output
 AUTHOR : cyanezf
-FAMILY: System
+FAMILY: 'system/esc'
 VERSION : 2.2
 
 //(*--
 //# Falimy
-//* System
+//* system/esc
 //
 //# Log
 //| version | date | author | description |

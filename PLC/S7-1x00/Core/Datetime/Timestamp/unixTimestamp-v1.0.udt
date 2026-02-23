@@ -1,12 +1,12 @@
 ﻿TYPE "unixTimestamp"
 TITLE = Type:Unix timestamp
 AUTHOR : cyanezf
-FAMILY: 'Datetime/timestamp'
+FAMILY: 'datetime/timestamp'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Datetime/timestamp
+//* datetime/timestamp
 //
 //# Log
 //| version | date | author | description |

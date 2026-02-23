@@ -1,12 +1,12 @@
 ﻿TYPE "mc_manual_positioning1Axis"
 TITLE = Type:MC - manual positioning 1 Axis
 AUTHOR : cyanezf
-FAMILY: Control/Manual
+FAMILY: control/manual
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Control/Manual
+//* control/manual
 //
 //# Log
 //| version | date | author | description |

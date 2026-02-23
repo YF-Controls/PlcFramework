@@ -3,7 +3,7 @@ TITLE = Type:Queue instance attributes
 VERSION : 3.0
 //(*--
 //# Falimy
-//* 'ADT/Queue'
+//* 'adt/queue'
 //
 //# Log
 //| version | date | author | description |

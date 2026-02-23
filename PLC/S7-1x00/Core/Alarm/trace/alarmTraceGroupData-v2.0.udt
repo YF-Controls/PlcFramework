@@ -1,12 +1,12 @@
 ﻿TYPE "alarmTraceGroupData"
 TITLE = Type:Alarm trace group data
 AUTHOR : cyanezf
-FAMILY: Alarm
+FAMILY: 'alarm/trace'
 VERSION : 2.0
 
 //(*--
 //# Falimy
-//* Alarm
+//* 'alarm/trace'
 //
 //# Log
 //| version | date | author | description |

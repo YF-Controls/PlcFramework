@@ -2,7 +2,7 @@
 TITLE = Function:Enable/Disiable button
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : HMI
+FAMILY : hmi
 NAME : _enableDisableButton
 VERSION : 2.0
 

@@ -2,7 +2,7 @@
 TITLE = Function:Acoustic signal
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : HMI
+FAMILY : hmi
 NAME : _acousticSignal
 VERSION : 1.1
 

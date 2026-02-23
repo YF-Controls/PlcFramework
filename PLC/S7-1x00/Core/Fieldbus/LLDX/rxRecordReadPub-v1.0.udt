@@ -1,12 +1,12 @@
 ﻿TYPE "rxRecordReadPub"
 TITLE = Type:RX record read publisher
 AUTHOR : cyanezf
-FAMILY: 'Fieldbus/LLDX'
+FAMILY: 'fieldbus/lldx'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Fieldbus/LLDX
+//* fieldbus/lldx
 //
 //# Log
 //| version | date | author | description |

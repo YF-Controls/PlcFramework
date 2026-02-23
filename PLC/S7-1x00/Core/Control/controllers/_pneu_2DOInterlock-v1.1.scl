@@ -2,7 +2,7 @@
 TITLE = Function:Pneumatic 2DO with position interlock
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Controller'
+FAMILY : 'control/controller'
 NAME : _pneu_2DOInterlock
 VERSION : 1.1
 

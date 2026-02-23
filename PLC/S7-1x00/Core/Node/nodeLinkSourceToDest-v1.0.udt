@@ -1,12 +1,12 @@
 ﻿TYPE "nodeLinkSourceToDest"
 TITLE = Type:Node link - source to destination
 AUTHOR : cyanezf
-FAMILY: Node
+FAMILY: node
 VERSION : 1.1
 
 //(*--
 //# Falimy
-//* Node
+//* node
 //
 //# Log
 //| version | date | author | description |

@@ -2,7 +2,7 @@
 TITLE = Function:Compare 2 values with tolerance
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Util'
+FAMILY : 'control/util'
 NAME : _compareWithTolerance
 VERSION : 1.0
 

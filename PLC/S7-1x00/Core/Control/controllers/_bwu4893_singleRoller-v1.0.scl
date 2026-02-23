@@ -2,7 +2,7 @@
 TITLE = Function:BWU4893 for single motoroller
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Controller'
+FAMILY : 'control/controller'
 NAME : _bwu4893_singleRoller
 VERSION : 1.0
    VAR_INPUT 

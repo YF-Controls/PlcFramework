@@ -2,7 +2,7 @@
 TITLE = Function:Accumulator Conveyor Filling
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/ConveyorTechnology'
+FAMILY : 'control/conveyor-technology'
 NAME : _accumulatorConveyorFilling
 VERSION : 1.0
    VAR_INPUT 

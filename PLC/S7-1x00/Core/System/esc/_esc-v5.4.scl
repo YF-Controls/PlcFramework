@@ -2,7 +2,7 @@
 TITLE = Function:Emergenyc Stop Circuit
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : System
+FAMILY : 'system/esc'
 NAME : _esc
 VERSION : 5.4
    VAR_INPUT 

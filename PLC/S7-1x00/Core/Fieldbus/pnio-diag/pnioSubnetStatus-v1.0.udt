@@ -1,12 +1,12 @@
 ﻿TYPE "pnioSubnetStatus"
 TITLE = Type:PNIO subnet status
 AUTHOR : cyanezf
-FAMILY : 'Fieldbus/PnioDiag'
+FAMILY : 'fieldbus/pnio-diag'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Fieldbus/PnioDiag
+//* fieldbus/pnio-diag
 //
 //# Log
 //| version | date | author | description |

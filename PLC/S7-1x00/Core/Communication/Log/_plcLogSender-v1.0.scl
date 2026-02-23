@@ -2,7 +2,7 @@
 TITLE = Function:PLC Log sender
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Communication/Log'
+FAMILY : 'communication/log'
 NAME : _plcLogSender
 VERSION : 1.0
    VAR_INPUT 

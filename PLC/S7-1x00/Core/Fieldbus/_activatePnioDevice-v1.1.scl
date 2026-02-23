@@ -2,7 +2,7 @@
 TITLE = Function:Activate/Deactivate Profinet Device
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Fieldbus
+FAMILY : fieldbus
 NAME : _activatePnioDevice
 VERSION : 1.1
    VAR_INPUT 

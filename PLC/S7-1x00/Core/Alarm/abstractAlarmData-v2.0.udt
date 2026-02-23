@@ -1,12 +1,12 @@
 ﻿TYPE "abstractAlarmData"
 TITLE = Type:Abstract alarm data pattern
 AUTHOR : cyanezf
-FAMILY: Alarm
+FAMILY: alarm
 VERSION : 2.0
 
 //(*--
 //# Falimy
-//* Alarm
+//* alarm
 //
 //# Log
 //| version | date | author | description |

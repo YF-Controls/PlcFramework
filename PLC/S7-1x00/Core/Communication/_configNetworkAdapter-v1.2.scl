@@ -2,7 +2,7 @@
 TITLE = Function:Configure network adapter
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Communication
+FAMILY : communication
 NAME : _configNetworkAdapter
 VERSION : 1.2
    VAR_INPUT 

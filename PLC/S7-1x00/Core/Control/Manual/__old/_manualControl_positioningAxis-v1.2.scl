@@ -2,7 +2,7 @@
 TITLE = Function:Manual control for positioning Axis
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Manual'
+FAMILY : 'control/manual'
 NAME : _manualControl_positioningAxis
 VERSION : 1.2
    VAR_INPUT 

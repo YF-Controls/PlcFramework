@@ -2,7 +2,7 @@
 TITLE = Function:F-Senddp/Rcvdp status
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Safety
+FAMILY : safety
 NAME : _UF_senddpRcvdpStatus
 VERSION : 1.0
 

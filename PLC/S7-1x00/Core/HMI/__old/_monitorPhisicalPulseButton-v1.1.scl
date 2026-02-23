@@ -2,7 +2,7 @@
 TITLE = Function:Monitor pulse button
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : HMI
+FAMILY : hmi
 NAME : _monitorPhysicalPulseButton
 VERSION : 1.1
 

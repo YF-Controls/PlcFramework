@@ -2,7 +2,7 @@
 TITLE = Function:In max range
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Util'
+FAMILY : 'control/util'
 NAME: _inMaxRange
 VERSION : 1.0
    VAR_INPUT 

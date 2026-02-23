@@ -1,12 +1,12 @@
 ﻿TYPE "nodeLink"
 TITLE = Type:Node link
 AUTHOR : cyanezf
-FAMILY: Node
+FAMILY: node
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Node
+//* node
 //
 //# Log
 //| version | date | author | description |

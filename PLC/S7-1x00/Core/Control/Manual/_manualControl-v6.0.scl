@@ -2,7 +2,7 @@
 TITLE = Function:Manual control
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Manual'
+FAMILY : 'control/manual'
 NAME : _manualControl
 VERSION : 6.0
 

@@ -3,7 +3,7 @@ TITLE = Type: Stack Instance Attributes
 VERSION : 0.1
 //(*--
 //# Falimy
-//* 'ADT/Stack'
+//* 'adt/stack'
 //
 //# Log
 //| version | date | author | description |

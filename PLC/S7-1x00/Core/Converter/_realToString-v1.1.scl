@@ -2,7 +2,7 @@
 TITLE = Function:Convert real to string
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Converter
+FAMILY : converter
 NAME : _realToString
 VERSION : 1.1
    VAR_INPUT 

@@ -2,7 +2,7 @@
 TITLE = Function:Get weekday
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Datetime/Util'
+FAMILY : 'datetime/util'
 NAME : _getWeekday
 VERSION : 1.0
    VAR_INPUT 

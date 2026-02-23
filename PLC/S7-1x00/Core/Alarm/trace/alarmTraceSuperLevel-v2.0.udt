@@ -1,11 +1,11 @@
 ﻿TYPE "alarmTraceSuperLevel"
 TITLE = Type:Alarm trace super level
 AUTHOR : cyanezf
-FAMILY: Alarm
+FAMILY: 'alarm/trace'
 VERSION : 2.0
 //(*--
 //# Falimy
-//* Alarm
+//* 'alarm/trace'
 //
 //# Log
 //| version | date | author | description |

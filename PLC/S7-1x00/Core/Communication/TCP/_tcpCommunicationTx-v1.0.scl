@@ -2,7 +2,7 @@
 TITLE = Function:TCP sender
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Communication/TCP'
+FAMILY : 'communication/tcp'
 NAME : _tcpCommunicationTx
 VERSION : 1.0
 

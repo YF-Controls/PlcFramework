@@ -2,7 +2,7 @@
 TITLE = Function:TCP socket connector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Communication/TCP'
+FAMILY : 'communication/tcp'
 NAME : _tcpCommunication
 VERSION : 2.2
 

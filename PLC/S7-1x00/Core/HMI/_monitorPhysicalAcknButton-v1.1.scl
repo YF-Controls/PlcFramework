@@ -2,7 +2,7 @@
 TITLE = Function:Monitor ackn. button
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : HMI
+FAMILY : hmi
 NAME : _monitorPhysicalAcknButton
 VERSION : 1.1
 

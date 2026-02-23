@@ -2,7 +2,7 @@
 TITLE = Function:Update alarm ID, check 8 bits
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Alarm
+FAMILY : 'alarm/add-on'
 NAME : _alarmBit08Id
 VERSION : 2.0
    VAR_INPUT 

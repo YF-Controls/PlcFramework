@@ -2,7 +2,7 @@
 TITLE = Function:Siemens Sitop PSE200U
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Protection
+FAMILY : protection
 NAME : _siemens_sitop_PSE200U
 VERSION : 1.1
 

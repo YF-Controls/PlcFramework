@@ -2,7 +2,7 @@
 TITLE = Function:Enabling key status
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Safety
+FAMILY : safety
 NAME : _UF_enKeyStatus
 VERSION : 1.0
 

@@ -1,12 +1,12 @@
 ﻿TYPE "ifm_ogd250_control"
 TITLE = Type:IFM - OGD250 control
 AUTHOR : cyanezf
-FAMILY: 'Dad/IFM/OGD250'
+FAMILY: 'dad/ifm/ogd250'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Dad/IFM/OGD250
+//* dad/ifm/ogd250
 //
 //# Log
 //| version | date | author | description |

@@ -2,7 +2,7 @@
 TITLE = Function:Manual Control for Speed Axis
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Manual'
+FAMILY : 'control/manual'
 NAME : _mc_manualControl_speed1Axis
 VERSION : 1.1
 

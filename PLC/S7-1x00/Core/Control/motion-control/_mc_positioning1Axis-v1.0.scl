@@ -2,7 +2,7 @@
 TITLE = Function:Motion control for 1 Axis positioning
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/MotionControl'
+FAMILY : 'control/motion-control'
 NAME : _mc_positioning1Axis
 VERSION : 1.0
    VAR_INPUT 

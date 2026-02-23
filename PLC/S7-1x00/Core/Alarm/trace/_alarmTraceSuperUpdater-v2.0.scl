@@ -2,7 +2,7 @@
 TITLE = Function:Alarm trace - Super updater
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Alarm
+FAMILY : 'alarm/trace'
 NAME : _alarmTraceSuperUpdater
 VERSION : 2.0
    VAR_IN_OUT 

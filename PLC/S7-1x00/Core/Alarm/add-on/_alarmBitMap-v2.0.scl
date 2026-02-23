@@ -2,7 +2,7 @@
 TITLE = Function:Update alarm map
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Alarm
+FAMILY : 'alarm/add-on'
 NAME : _alarmBitsMap
 VERSION : 2.0
    VAR_INPUT 

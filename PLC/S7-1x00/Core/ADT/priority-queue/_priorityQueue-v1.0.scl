@@ -2,7 +2,7 @@
 TITLE = Function:Priority Queue
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'ADT/PriorityQueue'
+FAMILY : 'adt/priority-queue'
 NAME : _priorityQueue
 VERSION : 1.0
    VAR_INPUT 

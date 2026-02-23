@@ -2,7 +2,7 @@
 TITLE = Function:FDI status
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Safety
+FAMILY : safety
 NAME : _UF_fdiStatus
 VERSION : 2.0
 

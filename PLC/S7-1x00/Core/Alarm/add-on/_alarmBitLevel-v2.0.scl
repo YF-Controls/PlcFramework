@@ -2,7 +2,7 @@
 TITLE = Function:Update alarm level
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Alarm
+FAMILY : 'alarm/add-on'
 NAME : _alarmBitLevel
 VERSION : 2.0
    VAR_INPUT 

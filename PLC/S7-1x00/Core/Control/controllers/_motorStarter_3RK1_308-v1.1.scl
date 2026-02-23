@@ -2,7 +2,7 @@
 TITLE = Function:Motorstarter 3RK1-308
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'Control/Controller'
+FAMILY : 'control/controller'
 NAME : _motorStarter_3RK1_308
 VERSION : 1.1
 

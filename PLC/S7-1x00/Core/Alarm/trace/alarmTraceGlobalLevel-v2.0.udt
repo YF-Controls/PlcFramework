@@ -1,11 +1,12 @@
-﻿TYPE "alarmTraceGroupLevel"
-TITLE = Type:Alarm trace group level
+﻿TYPE "alarmTraceGlobalLevel"
+TITLE = Type:Alarm trace global level
 AUTHOR : cyanezf
-FAMILY: Alarm
+FAMILY: 'alarm/trace'
 VERSION : 2.0
+
 //(*--
 //# Falimy
-//* Alarm
+//* 'alarm/trace'
 //
 //# Log
 //| version | date | author | description |
@@ -18,13 +19,14 @@ VERSION : 2.0
 //|:-----------!
 // 
 //# Description
-//Alarm trace group level
+//Alarm trace global level
 //
 //#
 //_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 //--*)
-//
    STRUCT
+      super : UInt;   // 0=No group, 1..N=Super group id
+      group : UInt;   // 0=No group, 1..N=Group id
       object : UInt;   // 0=No object; 1..N=Object id
       id : Int;   // 0x0000=No alarm, 0xHHHH=Some alarm
       triggered : UInt;   // N=Some alarm triggered

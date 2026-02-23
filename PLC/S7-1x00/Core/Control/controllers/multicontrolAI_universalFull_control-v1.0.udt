@@ -1,12 +1,12 @@
 ﻿TYPE "multicontrolAI_universalFull_control"
 TITLE = Type:Multicontrol AI - universal full control
 AUTHOR : cyanezf
-FAMILY : 'Control/Controller'
+FAMILY : 'control/controller'
 VERSION : 1.0
 
 //(*--
 //# Falimy
-//* Control/Controller
+//* control/controller
 //
 //# Log
 //| version | date | author | description |

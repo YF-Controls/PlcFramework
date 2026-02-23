@@ -2,7 +2,7 @@
 TITLE = Function:Feedback status
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : Safety
+FAMILY : safety
 NAME : _UF_feedbackStatus
 VERSION : 1.1
    VAR_INPUT 
