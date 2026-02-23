@@ -6,18 +6,18 @@ FAMILY : 'alarm/add-on'
 NAME : _alarmBitLevel
 VERSION : 2.0
    VAR_INPUT 
-      a1i : UInt;   // 1=Information alarm
-      a2w : UInt;   // 2=Warning alarm
-      a3e : UInt;   // 3=Error alarm
-      a4f : UInt;   // 4=Emergency alarm
+      a1i_triggered : UInt;   // 1=Information alarm
+      a2w_triggered : UInt;   // 2=Warning alarm
+      a3e_triggered : UInt;   // 3=Error alarm
+      a4f_triggered : UInt;   // 4=Emergency alarm
    END_VAR
 
    VAR CONSTANT 
-      ALARM_0_NIL : USInt := 0;
-      ALARM_1_INFO : USInt := 1;
-      ALARM_2_WARNING : USInt := 2;
-      ALARM_3_ERROR : USInt := 3;
-      ALARM_4_EMERGENCY : USInt := 4;
+      ALARM_LEVEL_0_NIL : USInt := 0;
+      ALARM_LEVEL_1_INFO : USInt := 1;
+      ALARM_LEVEL_2_WARNING : USInt := 2;
+      ALARM_LEVEL_3_ERROR : USInt := 3;
+      ALARM_LEVEL_4_EMERGENCY : USInt := 4;
    END_VAR
 
 
@@ -65,20 +65,20 @@ BEGIN
 	}--*)
 	
 	// Get alarm level by priority
-	IF #a4f > 0 THEN
-	  #_alarmBitLevel := #ALARM_4_EMERGENCY;
+	IF #a4f_triggered > 0 THEN
+	  #_alarmBitLevel := #ALARM_LEVEL_4_EMERGENCY;
 	  
-	ELSIF #a3e > 0 THEN
-	  #_alarmBitLevel := #ALARM_3_ERROR;
+	ELSIF #a3e_triggered > 0 THEN
+	  #_alarmBitLevel := #ALARM_LEVEL_3_ERROR;
 	  
-	ELSIF #a2w > 0 THEN
-	  #_alarmBitLevel := #ALARM_2_WARNING;
+	ELSIF #a2w_triggered > 0 THEN
+	  #_alarmBitLevel := #ALARM_LEVEL_2_WARNING;
 	  
-	ELSIF #a1i > 0 THEN
-	  #_alarmBitLevel := #ALARM_1_INFO;
+	ELSIF #a1i_triggered > 0 THEN
+	  #_alarmBitLevel := #ALARM_LEVEL_1_INFO;
 	  
 	ELSE
-	  #_alarmBitLevel := #ALARM_0_NIL;
+	  #_alarmBitLevel := #ALARM_LEVEL_0_NIL;
 	  
 	END_IF;
 	
