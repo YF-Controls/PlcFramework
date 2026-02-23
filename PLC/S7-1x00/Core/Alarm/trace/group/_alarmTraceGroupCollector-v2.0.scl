@@ -2,7 +2,7 @@
 TITLE = Function:Alarm trace - Group collector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'alarm/trace'
+FAMILY : 'alarm/trace/group'
 NAME : _alarmTraceGroupCollector
 VERSION : 2.0
    VAR_INPUT 

@@ -2,7 +2,7 @@
 TITLE = Function:Alarm trace - Global collector
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'alarm/trace'
+FAMILY : 'alarm/trace/global'
 NAME : _alarmTraceGlobalCollector
 VERSION : 2.0
    VAR_INPUT 

@@ -1,12 +1,12 @@
-﻿TYPE "alarmTraceGroupData"
-TITLE = Type:Alarm trace group data
+﻿TYPE "alarmTraceSuperData"
+TITLE = Type:Alarm trace super data
 AUTHOR : cyanezf
-FAMILY: 'alarm/trace'
+FAMILY: 'alarm/trace/super'
 VERSION : 2.0
 
 //(*--
 //# Falimy
-//* 'alarm/trace'
+//* alarm/trace/super
 //
 //# Log
 //| version | date | author | description |
@@ -17,10 +17,10 @@ VERSION : 2.0
 //# Dependencies
 //| Dependency |
 //|:-----------!
-//| alarmTraceGroupLevel |
+//| alarmTraceSuperLevel |
 // 
 //# Description
-//Alarm trace group data
+//Alarm trace super data
 //
 //#
 //_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
@@ -28,12 +28,13 @@ VERSION : 2.0
 
    STRUCT
       level : USInt;   // 0=No alarm, 1=a1i Info, 2=a2w warning, 3=a3e error, 4=a4f emergency
+      group : UInt;   // Group ID
       object : UInt;   // Object ID
       id : Int;   // Alarm ID
-      a1i { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 1 - Info
-      a2w { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 2 - Warning
-      a3e { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 3 - Error
-      a4f { S7_SetPoint := 'False'} : "alarmTraceGroupLevel";   // Alarm level 4 - Emergency
+      a1i { S7_SetPoint := 'False'} : "alarmTraceSuperLevel";   // Alarm level 1 - Info
+      a2w { S7_SetPoint := 'False'} : "alarmTraceSuperLevel";   // Alarm level 2 - Warning
+      a3e { S7_SetPoint := 'False'} : "alarmTraceSuperLevel";   // Alarm level 3 - Error
+      a4f { S7_SetPoint := 'False'} : "alarmTraceSuperLevel";   // Alarm level 4 - Emergency
    END_STRUCT;
 
 END_TYPE

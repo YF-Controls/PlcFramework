@@ -2,7 +2,7 @@
 TITLE = Function:Alarm trace - Global updater
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'alarm/trace'
+FAMILY : 'alarm/trace/global'
 NAME : _alarmTraceGlobalUpdater
 VERSION : 2.0
    VAR_IN_OUT 

@@ -2,9 +2,9 @@
 TITLE = Function:Alarm trace - Super updater
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'alarm/trace'
+FAMILY : 'alarm/trace/super'
 NAME : _alarmTraceSuperUpdater
-VERSION : 2.0
+VERSION : 2.1
    VAR_IN_OUT 
       supers : Array[*] of "alarmTraceSuperData";   // Alarm trace supers
    END_VAR
@@ -33,6 +33,7 @@ BEGIN
 	# Log
 	| version | date | author | description |
 	|:-------:|:----:|:------:|:------------|
+	| v2.1 | 2025-07-29 | cyanezf | Fixed bug in triggered |
 	| v2.0 | 2025-06-12 | cyanezf | Alarm level constants added |
 	| v1.0 | 2025-03-24 | cyanezf | First version |
 	
@@ -64,7 +65,7 @@ BEGIN
 	    #supers[#i].a1i.object := #NO_OBJECT;
 	    #supers[#i].a1i.group := #NO_GROUP;
 	  END_IF;
-	  #supers[#i].a1i.triggered += #supers[#i].a1i.collector;
+	  #supers[#i].a1i.triggered := #supers[#i].a1i.collector;
 	  #supers[#i].a1i.collector := 0;
 	  
 	  // Warning
@@ -73,7 +74,7 @@ BEGIN
 	    #supers[#i].a2w.object := #NO_OBJECT;
 	    #supers[#i].a2w.group := #NO_GROUP;
 	  END_IF;
-	  #supers[#i].a2w.triggered += #supers[#i].a2w.collector;
+	  #supers[#i].a2w.triggered := #supers[#i].a2w.collector;
 	  #supers[#i].a2w.collector := 0;
 	  
 	  // Error
@@ -82,7 +83,7 @@ BEGIN
 	    #supers[#i].a3e.object := #NO_OBJECT;
 	    #supers[#i].a3e.group := #NO_GROUP;
 	  END_IF;
-	  #supers[#i].a3e.triggered += #supers[#i].a3e.collector;
+	  #supers[#i].a3e.triggered := #supers[#i].a3e.collector;
 	  #supers[#i].a3e.collector := 0;
 	  
 	  // Emergency
@@ -91,7 +92,7 @@ BEGIN
 	    #supers[#i].a4f.object := #NO_OBJECT;
 	    #supers[#i].a4f.group := #NO_GROUP;
 	  END_IF;
-	  #supers[#i].a4f.triggered += #supers[#i].a4f.collector;
+	  #supers[#i].a4f.triggered := #supers[#i].a4f.collector;
 	  #supers[#i].a4f.collector := 0;
 	  
 	  // ################################################
