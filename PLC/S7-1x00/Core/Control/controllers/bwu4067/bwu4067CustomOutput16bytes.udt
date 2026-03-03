@@ -1,0 +1,14 @@
+﻿TYPE "bwu4067CustomOutput16bytes"
+VERSION : 0.1
+   STRUCT
+      p1_spare : DWord;   // Reserved Io-link port
+      p2_encoder : Struct   // BW4067-16bytes/Port 2-4bytes: Encoder
+         dword1 : DWord;
+         dword2 : DWord;
+      END_STRUCT;
+      p3_distance : DWord;   // BW4067-16bytes/Port 3-4bytes: Distance sensor
+      p4_distance : DWord;   // BW4067-16bytes/Port 4-4bytes: Distance sensor
+      spare : DWord;   // Free bytes
+   END_STRUCT;
+
+END_TYPE

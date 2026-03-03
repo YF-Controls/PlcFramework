@@ -1,4 +1,4 @@
-﻿TYPE "multicontrolAI_universalFull_status"
+﻿TYPE "multicontrolAI_universalFullStatus"
 TITLE = Type:Multicontrol AI - universal full status
 AUTHOR : cyanezf
 FAMILY : 'control/controller'

@@ -1,8 +1,8 @@
 ﻿FUNCTION_BLOCK "_multicontrolAI_2Rollers"
-TITLE = Function:Multicontrol AI for two motoroller
+TITLE = Function:Multicontrol AI for two motorrollers
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'control/controller'
+FAMILY : 'control/controller/multicontrolAI'
 NAME : _multicontrolAI_2Rollers
 VERSION : 1.0
    VAR_INPUT 

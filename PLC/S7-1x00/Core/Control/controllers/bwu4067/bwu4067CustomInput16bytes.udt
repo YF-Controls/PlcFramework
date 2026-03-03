@@ -1,0 +1,10 @@
+﻿TYPE "bwu4067CustomInput16bytes"
+VERSION : 0.1
+   STRUCT
+      p1_spare : DWord;   // Reserved Io-link port
+      p2_encoder { S7_SetPoint := 'False'} : "sick_ahm36_status";   // BW4067-16bytes/Port 2-4bytes: Encoder
+      p3_distance { S7_SetPoint := 'False'} : "sick_dx35";   // BW4067-16bytes/Port 3-4bytes: Distance sensor
+      p4_distance { S7_SetPoint := 'False'} : "sick_dx35";   // BW4067-16bytes/Port 4-4bytes: Distance sensor
+   END_STRUCT;
+
+END_TYPE

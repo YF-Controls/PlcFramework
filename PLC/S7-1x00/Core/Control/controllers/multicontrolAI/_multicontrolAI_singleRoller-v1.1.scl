@@ -1,8 +1,8 @@
 ﻿FUNCTION_BLOCK "_multicontrolAI_singleRoller"
-TITLE = Function:Multicontrol AI for single motoroller
+TITLE = Function:Multicontrol AI for single motorrroller
 { S7_Optimized_Access := 'TRUE' }
 AUTHOR : cyanezf
-FAMILY : 'control/controller'
+FAMILY : 'control/controller/multicontrolAI'
 NAME : _multicontrolAI_singleRoller
 VERSION : 1.1
 
