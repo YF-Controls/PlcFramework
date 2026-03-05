@@ -21,8 +21,18 @@ VERSION : 4.0
       cycleTime { ExternalWritable := 'False'} : Time;   // OR: Cycle time in milliseconds.
       cycleDivider { ExternalWritable := 'False'} : UDInt := 2#1;   // OR: Cycle divider bits
       cycleCounter { ExternalWritable := 'False'} : UDInt;   // OR: Cycle coutner
-      now {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : DTL;   // OR: Current date and time.
-      weekday { ExternalWritable := 'False'} : Struct   // OR: Current weekday in bits.
+      localNow {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : DTL;   // OR: Current Local date and time
+      utcNow {InstructionName := 'DTL'; LibVersion := '1.0'; ExternalWritable := 'False'} : DTL;   // OR: Current UTC date and time
+      localWeekday { ExternalWritable := 'False'} : Struct   // OR: Current Local weekday in bits
+         d1_sunday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 1 - sunday
+         d2_monday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 2 - monday
+         d3_tuesday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 3 - tuesday
+         d4_wednesday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 4 - wednesday
+         d5_thursday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 5 - thursday
+         d6_friday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 6 - friday
+         d7_saturday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 7 - saturday
+      END_STRUCT;
+      utcWeekday { ExternalWritable := 'False'} : Struct   // OR: Current UTC weekday in bits
          d1_sunday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 1 - sunday
          d2_monday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 2 - monday
          d3_tuesday { ExternalWritable := 'False'} : Bool;   // OR: 1=Day 3 - tuesday
@@ -192,16 +202,25 @@ BEGIN
 	 #toggleCycle := NOT #toggleCycle;
 	 
 	 // Now
-	 #result := RD_LOC_T(#now);
+	 #result := RD_LOC_T(#localNow);
+	 #result := RD_SYS_T(#utcNow);
 	 
 	 // Weekday
-	 #weekday.d1_sunday := #now.WEEKDAY = 1;
-	 #weekday.d2_monday := #now.WEEKDAY = 2;
-	 #weekday.d3_tuesday := #now.WEEKDAY = 3;
-	 #weekday.d4_wednesday := #now.WEEKDAY = 4;
-	 #weekday.d5_thursday := #now.WEEKDAY = 5;
-	 #weekday.d6_friday := #now.WEEKDAY = 6;
-	 #weekday.d7_saturday := #now.WEEKDAY = 7;
+	 #localWeekday.d1_sunday := #localNow.WEEKDAY = 1;
+	 #localWeekday.d2_monday := #localNow.WEEKDAY = 2;
+	 #localWeekday.d3_tuesday := #localNow.WEEKDAY = 3;
+	 #localWeekday.d4_wednesday := #localNow.WEEKDAY = 4;
+	 #localWeekday.d5_thursday := #localNow.WEEKDAY = 5;
+	 #localWeekday.d6_friday := #localNow.WEEKDAY = 6;
+	 #localWeekday.d7_saturday := #localNow.WEEKDAY = 7;
+	 
+	 #utcWeekday.d1_sunday := #utcNow.WEEKDAY = 1;
+	 #utcWeekday.d2_monday := #utcNow.WEEKDAY = 2;
+	 #utcWeekday.d3_tuesday := #utcNow.WEEKDAY = 3;
+	 #utcWeekday.d4_wednesday := #utcNow.WEEKDAY = 4;
+	 #utcWeekday.d5_thursday := #utcNow.WEEKDAY = 5;
+	 #utcWeekday.d6_friday := #utcNow.WEEKDAY = 6;
+	 #utcWeekday.d7_saturday := #utcNow.WEEKDAY = 7;
 	 
 	 // Temporal
 	 #private.errorAcknTimer(IN := #tmp_errorAckn,
