@@ -1,16 +1,11 @@
 ﻿FUNCTION_BLOCK "_encoderIncrementUDint"
-TITLE = Function:Encoder Increment UDINT
 { S7_Optimized_Access := 'TRUE' }
-AUTHOR : cyanezf
-FAMILY : 'control/util'
-NAME : _encoderIncrementUDint
-VERSION : 2.0
-
+VERSION : 0.1
    VAR_INPUT 
       encoderValue { ExternalWritable := 'False'} : UDInt;   // IR: Current encoder value
-      minValue { ExternalWritable := 'False'} : UDInt;   // IR: Min value of encoder
-      maxValue { ExternalWritable := 'False'} : UDInt;   // IR: Max value of encoder
-      maxIncrements { ExternalWritable := 'False'} : UDInt;   // IR: Max steps of encoder in one scan cycle
+      minValue { ExternalWritable := 'False'} : UDInt := 0;   // IR: Min value of encoder
+      maxValue { ExternalWritable := 'False'} : UDInt := 4294967295;   // IR: Max value of encoder
+      maxIncrements { ExternalWritable := 'False'} : UDInt := 1000;   // IR: Max steps of encoder in one scan cycle
    END_VAR
 
    VAR_OUTPUT 
