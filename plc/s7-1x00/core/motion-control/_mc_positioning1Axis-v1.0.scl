@@ -135,24 +135,39 @@ VERSION : 1.0
 
 
 BEGIN
-	//(*--
-	//
-	//# Log
-	//| version | date | author | description |
-	//|:-------:|:----:|:------:|:------------|
-	//| v1.0 | 2024-05-12 | cyanezf | First version |
-	//
-	//# Dependencies
-	//| Dependency |
-	//|:-----------!
-	// 
-	//# Description
-	//Motion control for 1 Axis positioning
-	//
-	//#
-	//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
-	//--*)
-	//
+(*--
+
+# Log
+| version | date | author | description |
+|:-------:|:----:|:------:|:------------|
+| v1.0 | 2024-05-12 | cyanezf | First version |
+
+# Dependencies
+| Dependency |
+|:-----------|
+| TO_PositioningAxis |
+| MC_POWER |
+| MC_RESET |
+| MC_STOP |
+| MC_HALT |
+| MC_HOME |
+| MC_MOVEJOG |
+| MC_MOVEVELOCITY |
+| MC_MOVEABSOLUTE |
+| MC_MOVERELATIVE |
+| MC_TORQUERANGE |
+| MC_TORQUELIMITING |
+	
+# Description
+This function block is used for motion control of one axis in positioning mode.
+It includes the control of homing, jogging, velocity and position movements,
+as well as torque control. It also includes the management of errors and warnings, 
+and the monitoring of the axis status.
+
+#
+_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+--*)
+
 	
 	REGION Axis
 	  

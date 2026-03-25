@@ -1,12 +1,39 @@
 ﻿TYPE "bwu4893Input14bytes"
+TITLE = Type:B-W - BWU4893 Input 14 bytes
+AUTHOR : cyanezf
+FAMILY: 'controller/bihl-wiedermann/bwu4893'
 VERSION : 1.0
+
+//(*--
+//# Falimy
+//* controller/bihl-wiedermann/bwu4893
+//
+//# Log
+//| version | date | author | description |
+//|:-------:|:----:|:------:|:------------|
+//| v1.0 | 2025-06-03 | cyanezf | First version |
+//
+//# Dependencies
+//| Dependency |
+//|:-----------!
+// 
+//# Description
+//This data type represents the input process data of the BWU4893 drive 
+//when configured with the profile 14 bytes. It contains digital inputs, 
+//error flags, and current measurements for the motors.
+//
 //The profile 14 bytes is characterized by the following specifications: 
 //* Profile ID: 0x820138
 //* Process data size of the inputs: 14 byte
-//* Process data size of the outputs: 8 byte
+//* Process data size of the outputs: 14 byte
 //* Transport channels: 1
 //* ASi-5 cycles: 10
 //This profile is compatible with all drives.
+//
+//#
+//_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+//--*)
+
    STRUCT
       DI1 : Bool;   // BW4893-14bytes: Digital input 1
       DI2 : Bool;   // BW4893-14bytes: Digital input 2
