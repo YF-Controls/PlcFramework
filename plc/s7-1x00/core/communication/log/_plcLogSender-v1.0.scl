@@ -73,18 +73,21 @@ BEGIN
 | v1.0 | 2025-07-31 | cyanezf | First version |
 
 # Dependencies
+
 | Dependency |
 |:-----------|
 | queueInstanceAttributes |
 | plcLogBuffer |
 | tcpCommunicationControl |
 | _tcpCommunication |
+| _queue |
 | TON_TIME |
 
 # Description
+
 This function sends to TCP client a log buffered in a queue.
 
-#
+# 
 _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 --*)
 	
