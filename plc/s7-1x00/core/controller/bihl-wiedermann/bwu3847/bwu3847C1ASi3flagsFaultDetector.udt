@@ -33,6 +33,7 @@ VERSION : 1.0
       overvoltage : Bool;   // 1=Overvoltage
       noise : Bool;   // 1=Noise
       duplicateAddress : Bool;   // 1=Duplicate address
+      
       configError : Bool;   // 1=Configuration error
       nodeWithAddessZeroDetected : Bool;   // 1=Node with address '0' detected
       autoAddressAssignmentNotPossible : Bool;   // 1=Auto address assignment not possible

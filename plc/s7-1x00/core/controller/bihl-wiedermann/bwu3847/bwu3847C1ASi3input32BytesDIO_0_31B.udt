@@ -32,7 +32,7 @@ VERSION : 1.0
       configError : Bool;   // 1=Configuration error
       ASi_powerFail : Bool;   // 1=ASi Power fail
       pheriperyFault : Bool;   // 1=Periphery fault
-      configurationACtive : Bool;   // 1=Configuration mode
+      configurationActive : Bool;   // 1=Configuration mode
 
       node03A_DI0 : Bool;   // Node 3A - DI0
       node03A_DI1 : Bool;   // Node 3A - DI1
