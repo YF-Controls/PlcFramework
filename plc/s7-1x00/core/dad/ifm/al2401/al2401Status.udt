@@ -1,0 +1,16 @@
+﻿TYPE "al2401Status"
+VERSION : 0.1
+   STRUCT
+      x1_0_shortcurcuit : Bool;   // Short circuit X1.0
+      x1_1_shortcurcuit : Bool;   // Short circuit X1.1
+      x1_2_shortcurcuit : Bool;   // Short circuit X1.2
+      x1_3_shortcurcuit : Bool;   // Short circuit X1.3
+      x1_4_shortcurcuit : Bool;   // Short circuit X1.4
+      x1_5_shortcurcuit : Bool;   // Short circuit X1.5
+      x1_6_shortcurcuit : Bool;   // Short circuit X1.6
+      x1_7_shortcurcuit : Bool;   // Short circuit X1.7
+      deviceId : Byte;   // Device ID
+   END_STRUCT;
+
+END_TYPE
+
