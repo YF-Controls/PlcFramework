@@ -32,8 +32,8 @@ VERSION : 1.3
       ready { ExternalWritable := 'False'} : Bool;   // IOR: 1=Ready
       hmiCommand { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : UInt;   // IOX: HMI command
       controller_command { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int;   // IOX: Controller: set command
-      position : Real;   // IOX: Setpoint position for positining
-      velocity : Real;   // IOX: Setpoint velocity for positioning
+      position : Real;   // IOW: Setpoint position for positining
+      velocity : Real;   // IOW: Setpoint velocity for positioning
    END_VAR
 
    VAR 

@@ -14,6 +14,7 @@ VERSION : 1.0
       profile { ExternalWritable := 'False'} : "jxcProfile";   // IR: Positioning profile
       ackn { ExternalWritable := 'False'} : Bool;   // IR: 1=Error ackn
       changeOnFly { ExternalWritable := 'False'} : Bool;   // IR: 0=Disable to change parameters on fly; 1=Enable to change parameters on fly
+      offset { ExternalWritable := 'False'} : Real;   // IR: Position offset for user
       pdo_hwSubmodule { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : HW_SUBMODULE;   // IX: Parameter data output channel
    END_VAR
 
@@ -191,8 +192,8 @@ BEGIN
 	// Output ###############################################
 	// ######################################################
 	#actualCommand := #CMD_0_NIL;
-	#actualPosition := DINT_TO_REAL(#pdi.currentPosition) / #POS_FACTOR;
-	#targetPosition := DINT_TO_REAL(#pdi.targetPosition) / #POS_FACTOR;
+	#actualPosition := (DINT_TO_REAL(#pdi.currentPosition) / #POS_FACTOR) - #offset;
+	#targetPosition := (DINT_TO_REAL(#pdi.targetPosition) / #POS_FACTOR) - #offset;
 	#actualVelocity := INT_TO_REAL(#pdi.currentSpeed);
 	#actualTorque := INT_TO_USINT(#pdi.currentPushingForce);
 	
@@ -260,7 +261,7 @@ BEGIN
 	    #writeStepData.buffer[2] := #auxWord.%B1;
 	    #writeStepData.buffer[3] := #auxWord.%B0;
 	    
-	    #auxDword := REAL_TO_DINT(#profile.position * #POS_FACTOR);
+	    #auxDword := REAL_TO_DINT((#profile.position + #offset) * #POS_FACTOR);
 	    #writeStepData.buffer[4] := #auxDword.%B3;
 	    #writeStepData.buffer[5] := #auxDword.%B2;
 	    #writeStepData.buffer[6] := #auxDword.%B1;
@@ -287,13 +288,13 @@ BEGIN
 	    #writeStepData.buffer[18] := 0;
 	    #writeStepData.buffer[19] := #profile.movingForce;
 	    
-	    #auxDword := REAL_TO_DINT(#profile.area1 * #POS_FACTOR);
+	    #auxDword := REAL_TO_DINT((#profile.area1 + #offset) * #POS_FACTOR);
 	    #writeStepData.buffer[20] := #auxDword.%B3;
 	    #writeStepData.buffer[21] := #auxDword.%B2;
 	    #writeStepData.buffer[22] := #auxDword.%B1;
 	    #writeStepData.buffer[23] := #auxDword.%B0;
 	    
-	    #auxDword := REAL_TO_DINT(#profile.area2 * #POS_FACTOR);
+	    #auxDword := REAL_TO_DINT((#profile.area2 + #offset) * #POS_FACTOR);
 	    #writeStepData.buffer[24] := #auxDword.%B3;
 	    #writeStepData.buffer[25] := #auxDword.%B2;
 	    #writeStepData.buffer[26] := #auxDword.%B1;
@@ -389,7 +390,7 @@ BEGIN
 	    #auxDword.%B2 := #readStepData.buffer[5];
 	    #auxDword.%B1 := #readStepData.buffer[6];
 	    #auxDword.%B0 := #readStepData.buffer[7];
-	    #readStepData.profile.position := DINT_TO_REAL(#auxDword) / #POS_FACTOR;
+	    #readStepData.profile.position := (DINT_TO_REAL(#auxDword) / #POS_FACTOR) - #offset;
 	    
 	    #auxWord.%B1 := #readStepData.buffer[8];
 	    #auxWord.%B0 := #readStepData.buffer[9];
@@ -416,13 +417,13 @@ BEGIN
 	    #auxDword.%B2 := #readStepData.buffer[21];
 	    #auxDword.%B1 := #readStepData.buffer[22];
 	    #auxDword.%B0 := #readStepData.buffer[23];
-	    #readStepData.profile.area1 := DINT_TO_REAL(#auxDword) / #POS_FACTOR;
+	    #readStepData.profile.area1 := (DINT_TO_REAL(#auxDword) / #POS_FACTOR) - #offset;
 	    
 	    #auxDword.%B3 := #readStepData.buffer[24];
 	    #auxDword.%B2 := #readStepData.buffer[25];
 	    #auxDword.%B1 := #readStepData.buffer[26];
 	    #auxDword.%B0 := #readStepData.buffer[27];
-	    #readStepData.profile.area2 := DINT_TO_REAL(#auxDword) / #POS_FACTOR;
+	    #readStepData.profile.area2 := (DINT_TO_REAL(#auxDword) / #POS_FACTOR) - #offset;
 	    
 	    #auxDword.%B3 := #readStepData.buffer[28];
 	    #auxDword.%B2 := #readStepData.buffer[29];
@@ -563,7 +564,7 @@ BEGIN
 	REGION Set Profile
 	  
 	  // Positioning data
-	  #pdo.position := REAL_TO_DINT(#profile.position * #POS_FACTOR);
+	  #pdo.position := REAL_TO_DINT((#profile.position + #offset) * #POS_FACTOR);
 	  #pdo.inPosition := REAL_TO_DINT(#profile.inPosition * #POS_FACTOR);
 	  #pdo.speed := REAL_TO_INT(#profile.velocity);
 	  #pdo.acceleration := REAL_TO_INT(#profile.acceleration);
@@ -574,9 +575,9 @@ BEGIN
 	  #pdo.pushingSpeed := REAL_TO_INT(#profile.pushingVelocity);
 	  #pdo.triggerLV := USINT_TO_INT(#profile.triggerlevel);
 	  // Area data
-	  #pdo.area1 := REAL_TO_DINT(#profile.area1);
-	  #pdo.area2 := REAL_TO_DINT(#profile.area2);
-	
+	  #pdo.area1 := REAL_TO_DINT((#profile.area1 + #offset) * #POS_FACTOR);
+	  #pdo.area2 := REAL_TO_DINT((#profile.area2 + #offset) * #POS_FACTOR);
+	  
 	END_REGION
 	
 	// Save RLO
