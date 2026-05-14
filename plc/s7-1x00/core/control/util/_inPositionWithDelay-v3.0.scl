@@ -1,0 +1,50 @@
+﻿FUNCTION "_inPositionWithDelay" : Bool
+TITLE = Function:In position with delay
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'control/util'
+NAME : _inPositionWithDelay
+VERSION : 3.0
+   VAR_INPUT 
+      homed : Bool;   // 1=Homed and sync ok (if there are sync axis)
+      actualPosition : Real;   // Actual position
+      position : Real;   // Reference position
+      tolerance : Real;   // Max tolerance
+      delay : Time;   // Delay time
+   END_VAR
+
+   VAR_IN_OUT 
+      "timer" {InstructionName := 'TON_TIME'; LibVersion := '1.0'} : TON_TIME;   // Delay timer
+   END_VAR
+
+
+BEGIN
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v3.0 | 2026-05-12 | cyanezf | changed FB to FC |
+	| v2.0 | 2025-07-15 | cyanezf | return as bool added |
+	| v1.0 | 2025-01-10 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| TON_TIME |
+	
+	# Description
+	This function checks if the `actualPosition` is in `position` with `tolerance` and is `homed`.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
+	
+	#timer(IN:=#homed AND ABS(#position - #actualPosition) < #tolerance,
+	       PT:=#delay);
+	
+	// Save RLO
+	ENO := #_inPositionWithDelay := #timer.Q;
+	
+END_FUNCTION
+
