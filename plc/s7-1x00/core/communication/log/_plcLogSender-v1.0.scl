@@ -15,7 +15,7 @@ VERSION : 1.0
 
    VAR_IN_OUT 
       queue : "queueInstanceAttributes";   // IOX: Queue instance
-      data : Array[*] of "plcLogBuffer";   // IOX: Queue data array
+      records : Array[*] of "plcLogBuffer";   // IOX: Queue data array
    END_VAR
 
    VAR 
@@ -65,31 +65,29 @@ VERSION : 1.0
 
 
 BEGIN
-(*--
-
-# Log
-| version | date | author | description |
-|:-------:|:----:|:------:|:------------|
-| v1.0 | 2025-07-31 | cyanezf | First version |
-
-# Dependencies
-
-| Dependency |
-|:-----------|
-| queueInstanceAttributes |
-| plcLogBuffer |
-| tcpCommunicationControl |
-| _tcpCommunication |
-| _queue |
-| TON_TIME |
-
-# Description
-
-This function sends to TCP client a log buffered in a queue.
-
-# 
-_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
---*)
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2025-07-31 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:-----------|
+	| queueInstanceAttributes |
+	| plcLogBuffer |
+	| tcpCommunicationControl |
+	| _tcpCommunication |
+	| TON_TIME |
+	| _queue |
+	
+	# Description
+	This function sends to TCP client a log buffered in a queue.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)
 	
 	
 	REGION Connection
@@ -167,7 +165,7 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  IF #state = #STATE_1_DEQUEUE_MESSAGE THEN
 	    
 	    // Dequeue
-	    #retVal := "_queue"(command := #QUEUE_CMD_11_DEQUEUE, instance := #queue, data := #data, buffer := #buffer);
+	    #retVal := "_queue"(command := #QUEUE_CMD_11_DEQUEUE, instance := #queue, data := #records, buffer := #buffer);
 	    
 	    // Transition
 	    IF #retVal = #QUEUE_STATUS_0_DONE THEN
@@ -199,12 +197,6 @@ _Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc
 	  IF #state = #STATE_4_SEND_MESSAGE THEN
 	    
 	    // Associated actiona
-	    (*
-	    // Add new line
-	    #buffer.data[#buffer.length] := '$R';
-	    #buffer.data[#buffer.length+1] := '$L';
-	    #control.length := #buffer.length + 2;
-	    *)
 	    #control.length := #buffer.length;
 	    #control.command := #COM_CONTROL_1_REQ;
 	    

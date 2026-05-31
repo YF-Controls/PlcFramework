@@ -1,12 +1,9 @@
 ﻿TYPE "plcLogBuffer"
 TITLE = Type: PLC Log buffer
-AUTHOR : cyanezf
-FAMILY : 'communication/log'
-VERSION : 1.0
-
+VERSION : 0.1
 //(*--
 //# Falimy
-//* communication/log
+//* Communication/Log
 //
 //# Log
 //| version | date | author | description |
@@ -23,10 +20,9 @@ VERSION : 1.0
 //#
 //_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
 //--*)
-
    STRUCT
       length : UDInt;   // Data length
-      data : Array[0..399] of Byte;   // Data bytes
+      data : Array[0..99] of Byte;   // Data bytes
    END_STRUCT;
 
 END_TYPE
