@@ -1,0 +1,57 @@
+﻿FUNCTION "_calculateJerk" : LReal
+TITLE = Function: Calculate jerk
+{ S7_Optimized_Access := 'TRUE' }
+AUTHOR : cyanezf
+FAMILY : 'motion-control/util'
+NAME : _calculateJerk
+VERSION : 1.0
+   VAR_INPUT 
+      acceleration : LReal;   // Acceleration in U/s^2
+      rampTime : Time;   // <5=No ramp, use default ramp time (5ms); >=5=Use this value
+   END_VAR
+
+   VAR_TEMP 
+      ramp : LReal;
+   END_VAR
+
+   VAR CONSTANT 
+      MIN_TIME : Time := T#5ms;
+   END_VAR
+
+
+BEGIN
+	(*--
+	
+	# Log
+	| version | date | author | description |
+	|:-------:|:----:|:------:|:------------|
+	| v1.0 | 2026-06-17 | cyanezf | First version |
+	
+	# Dependencies
+	| Dependency |
+	|:---------- |
+	 
+	# Description
+	This funcion calculate jerk in `U/s^3`.
+	
+	#
+	_Use [Markdown Live Preview](https://markdownlivepreview.com/) to watch this doc._
+	--*)		
+	
+	
+	// Get ramp up in seconds
+	IF #rampTime <= #MIN_TIME THEN
+	  #ramp := DINT_TO_REAL(TIME_TO_DINT(#MIN_TIME)) / 1000.0;
+	ELSE
+	  #ramp := DINT_TO_REAL(TIME_TO_DINT(#rampTime)) / 1000.0;
+	END_IF;
+	
+	// Calculate acceleration
+	#_calculateJerk := ABS(#acceleration) / #ramp;
+	
+	// Save RLO
+	ENO := true;
+	
+	
+END_FUNCTION
+

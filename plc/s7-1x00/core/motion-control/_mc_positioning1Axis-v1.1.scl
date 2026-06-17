@@ -145,7 +145,7 @@ BEGIN
 	
 	# Dependencies
 	| Dependency |
-	|:-----------!
+	|:---------- |
 	 
 	# Description
 	Motion control for 1 Axis positioning

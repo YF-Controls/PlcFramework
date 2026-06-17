@@ -15,7 +15,7 @@ VERSION : 1.0
 //
 //# Dependencies
 //| Dependency |
-//|:-----------!
+//|:---------- |
 // 
 //# Description
 //This data type represents the input process data of the BWU4893 drive 

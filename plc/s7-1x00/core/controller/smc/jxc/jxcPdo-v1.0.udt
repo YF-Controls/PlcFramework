@@ -15,7 +15,7 @@ VERSION : 1.0
 //
 //# Dependencies
 //| Dependency |
-//|:-----------!
+//|:---------- |
 // 
 //# Description
 //This is the Process Data Output (PDO) structure for the SMC JXC series actuators when used with the S7-1x00 PLCs.
